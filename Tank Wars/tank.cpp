@@ -5,9 +5,10 @@
 
 Tank::Tank(sf::Texture* texture ){
     
-    linearAcc = 200.0f;
+    linearAcc = 300.0f;
     angularAcc = 100.0f;
     
+    turretVelocity = 2.0f;
     
     linearVelocity.x = 0.0f;
     linearVelocity.y = 0.0f;
@@ -16,7 +17,8 @@ Tank::Tank(sf::Texture* texture ){
     angularVelocity = 0.0f;
     maxAngularVelocity = 100.0f;
     
-    orientation = 0.0f;
+    bodyOrientation = 0.0f;
+    turretOrientation = 0.0f;
     
     body.setPosition( 512 , 512 );
     turret.setPosition( 512 , 512 );
@@ -71,7 +73,7 @@ sf::Vector2f Tank::getPosition(){
     return body.getPosition();
 }
 
-void Tank::updateBody(float deltaTime){
+void Tank::update(float deltaTime){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
         angularVelocity -= angularAcc * deltaTime;
     }
@@ -84,11 +86,11 @@ void Tank::updateBody(float deltaTime){
     
     angularVelocity = posOrNeg(angularVelocity) * std::min( fabs(angularVelocity) , maxAngularVelocity );
     float deltaTheta = angularVelocity * deltaTime;
-    orientation += deltaTheta;
+    bodyOrientation += deltaTheta;
     
     sf::Vector2f unitVector;
-    unitVector.x = cos(orientation * PI/180);
-    unitVector.y = sin(orientation * PI/180);
+    unitVector.x = cos(bodyOrientation * PI/180);
+    unitVector.y = sin(bodyOrientation * PI/180);
     
     
     float absAcc = linearAcc * deltaTime;
@@ -112,20 +114,20 @@ void Tank::updateBody(float deltaTime){
     movement.x = linearVelocity.x * deltaTime;
     movement.y = linearVelocity.y * deltaTime;
     
+    float delTurretTheta = 0.0f;
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+        turretOrientation -= turretVelocity;
+        delTurretTheta = -turretVelocity;
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+        turretOrientation += turretVelocity;
+        delTurretTheta = turretVelocity;
+    }
+    
     body.rotate(deltaTheta);
     body.move(movement);
     turret.move(movement);
-}
-
-void Tank::updateTurret(float deltaTime, sf::RenderWindow &window){
-    sf::Vector2i mouse = sf::Mouse::getPosition(window);
-    sf::Vector2f tankPos = body.getPosition();
-    
-    mouse.x -= tankPos.x;
-    mouse.y -= tankPos.y;
-    
-    std::cout<<mouse.x<<" "<<mouse.y<<"\n";
-    
+    turret.rotate(delTurretTheta);
 }
 
 
@@ -135,7 +137,6 @@ float Tank::reduce(float angularVelocity){
     else
         return 0.0f;
 }
-
 
 
 

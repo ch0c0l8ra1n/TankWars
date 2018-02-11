@@ -21,8 +21,7 @@ public:
     void setOrigin(sf::Vector2f origin);
     void draw(sf::RenderWindow& window);
     sf::Vector2f getPosition();
-    void updateBody(float deltaTime);
-    void updateTurret(float deltaTime, sf::RenderWindow& window);
+    void update(float deltaTime);
     int posOrNeg(float x);
     float reduce(float angularVelocity);
     
@@ -39,11 +38,13 @@ private:
     
     sf::Vector2f linearVelocity;
     float maxLinearVelocity;
+    float turretVelocity;
     
     float angularVelocity;
     float maxAngularVelocity;
     
-    float orientation;
+    float bodyOrientation;
+    float turretOrientation;
     
     
     

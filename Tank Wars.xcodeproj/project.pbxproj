@@ -7,21 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8839FED920278295008A9194 /* message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8839FED720278295008A9194 /* message.cpp */; };
 		886B61D6201A459C009948F8 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 886B61D5201A459C009948F8 /* ResourcePath.mm */; };
 		886B61D9201A459C009948F8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 886B61D8201A459C009948F8 /* main.cpp */; };
 		886B61E2201A459C009948F8 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61E1201A459C009948F8 /* icon.png */; };
 		886B61F0201A45D7009948F8 /* T34_strip2.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61E8201A45D6009948F8 /* T34_strip2.png */; };
-		886B61F1201A45D7009948F8 /* KV-2_strip2.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61E9201A45D7009948F8 /* KV-2_strip2.png */; };
-		886B61F2201A45D7009948F8 /* M-6_strip2.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61EA201A45D7009948F8 /* M-6_strip2.png */; };
-		886B61F3201A45D7009948F8 /* E-100_strip2.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61EB201A45D7009948F8 /* E-100_strip2.png */; };
-		886B61F4201A45D7009948F8 /* Pz.Kpfw.IV-G_strip2.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61EC201A45D7009948F8 /* Pz.Kpfw.IV-G_strip2.png */; };
+		886B61F1201A45D7009948F8 /* tank3.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61E9201A45D7009948F8 /* tank3.png */; };
+		886B61F2201A45D7009948F8 /* tank4.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61EA201A45D7009948F8 /* tank4.png */; };
+		886B61F3201A45D7009948F8 /* tank2.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61EB201A45D7009948F8 /* tank2.png */; };
+		886B61F4201A45D7009948F8 /* tank0.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61EC201A45D7009948F8 /* tank0.png */; };
 		886B61F5201A45D7009948F8 /* Tiger-II_strip2.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61ED201A45D7009948F8 /* Tiger-II_strip2.png */; };
-		886B61F6201A45D7009948F8 /* Pz.Kpfw.IV_strip2.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61EE201A45D7009948F8 /* Pz.Kpfw.IV_strip2.png */; };
+		886B61F6201A45D7009948F8 /* tank5.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61EE201A45D7009948F8 /* tank5.png */; };
 		886B61F7201A45D7009948F8 /* tank1.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61EF201A45D7009948F8 /* tank1.png */; };
 		886B61FA201A4B25009948F8 /* tank.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 886B61F8201A4B25009948F8 /* tank.cpp */; };
+		88DC7363201DA99100B98450 /* missile.png in Resources */ = {isa = PBXBuildFile; fileRef = 88DC7362201DA99100B98450 /* missile.png */; };
+		88DC7366201DAAC500B98450 /* missile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88DC7364201DAAC500B98450 /* missile.cpp */; };
+		88F867F02030278600C9E122 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88F867EE2030278600C9E122 /* player.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8839FED720278295008A9194 /* message.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = message.cpp; sourceTree = "<group>"; };
+		8839FED820278295008A9194 /* message.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = message.hpp; sourceTree = "<group>"; };
 		886B61D0201A459C009948F8 /* Tank Wars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tank Wars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B61D4201A459C009948F8 /* Tank Wars-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tank Wars-Info.plist"; sourceTree = "<group>"; };
 		886B61D5201A459C009948F8 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
@@ -29,15 +35,20 @@
 		886B61D8201A459C009948F8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		886B61E1201A459C009948F8 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		886B61E8201A45D6009948F8 /* T34_strip2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = T34_strip2.png; path = ../../../../Downloads/Tanks_Pack/T34_strip2.png; sourceTree = "<group>"; };
-		886B61E9201A45D7009948F8 /* KV-2_strip2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "KV-2_strip2.png"; path = "../../../../Downloads/Tanks_Pack/KV-2_strip2.png"; sourceTree = "<group>"; };
-		886B61EA201A45D7009948F8 /* M-6_strip2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "M-6_strip2.png"; path = "../../../../Downloads/Tanks_Pack/M-6_strip2.png"; sourceTree = "<group>"; };
-		886B61EB201A45D7009948F8 /* E-100_strip2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "E-100_strip2.png"; path = "../../../../Downloads/Tanks_Pack/E-100_strip2.png"; sourceTree = "<group>"; };
-		886B61EC201A45D7009948F8 /* Pz.Kpfw.IV-G_strip2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Pz.Kpfw.IV-G_strip2.png"; path = "../../../../Downloads/Tanks_Pack/Pz.Kpfw.IV-G_strip2.png"; sourceTree = "<group>"; };
+		886B61E9201A45D7009948F8 /* tank3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tank3.png; path = ../../../../Downloads/Tanks_Pack/tank3.png; sourceTree = "<group>"; };
+		886B61EA201A45D7009948F8 /* tank4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tank4.png; path = ../../../../Downloads/Tanks_Pack/tank4.png; sourceTree = "<group>"; };
+		886B61EB201A45D7009948F8 /* tank2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tank2.png; path = ../../../../Downloads/Tanks_Pack/tank2.png; sourceTree = "<group>"; };
+		886B61EC201A45D7009948F8 /* tank0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tank0.png; path = ../../../../Downloads/Tanks_Pack/tank0.png; sourceTree = "<group>"; };
 		886B61ED201A45D7009948F8 /* Tiger-II_strip2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Tiger-II_strip2.png"; path = "../../../../Downloads/Tanks_Pack/Tiger-II_strip2.png"; sourceTree = "<group>"; };
-		886B61EE201A45D7009948F8 /* Pz.Kpfw.IV_strip2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Pz.Kpfw.IV_strip2.png; path = ../../../../Downloads/Tanks_Pack/Pz.Kpfw.IV_strip2.png; sourceTree = "<group>"; };
+		886B61EE201A45D7009948F8 /* tank5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tank5.png; path = ../../../../Downloads/Tanks_Pack/tank5.png; sourceTree = "<group>"; };
 		886B61EF201A45D7009948F8 /* tank1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tank1.png; path = ../../../../Downloads/Tanks_Pack/tank1.png; sourceTree = "<group>"; };
 		886B61F8201A4B25009948F8 /* tank.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tank.cpp; sourceTree = "<group>"; };
 		886B61F9201A4B25009948F8 /* tank.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = tank.hpp; sourceTree = "<group>"; };
+		88DC7362201DA99100B98450 /* missile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = missile.png; path = ../../../../Downloads/missile.png; sourceTree = "<group>"; };
+		88DC7364201DAAC500B98450 /* missile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = missile.cpp; sourceTree = "<group>"; };
+		88DC7365201DAAC500B98450 /* missile.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = missile.hpp; sourceTree = "<group>"; };
+		88F867EE2030278600C9E122 /* player.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = "<group>"; };
+		88F867EF2030278600C9E122 /* player.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = player.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,11 +81,17 @@
 		886B61D2201A459C009948F8 /* Tank Wars */ = {
 			isa = PBXGroup;
 			children = (
+				88F867EE2030278600C9E122 /* player.cpp */,
+				88F867EF2030278600C9E122 /* player.hpp */,
+				8839FED720278295008A9194 /* message.cpp */,
+				8839FED820278295008A9194 /* message.hpp */,
 				886B61D5201A459C009948F8 /* ResourcePath.mm */,
 				886B61D7201A459C009948F8 /* ResourcePath.hpp */,
-				886B61D8201A459C009948F8 /* main.cpp */,
 				886B61F8201A4B25009948F8 /* tank.cpp */,
 				886B61F9201A4B25009948F8 /* tank.hpp */,
+				88DC7364201DAAC500B98450 /* missile.cpp */,
+				88DC7365201DAAC500B98450 /* missile.hpp */,
+				886B61D8201A459C009948F8 /* main.cpp */,
 				886B61DA201A459C009948F8 /* Resources */,
 				886B61D3201A459C009948F8 /* Supporting Files */,
 			);
@@ -92,11 +109,12 @@
 		886B61DA201A459C009948F8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				886B61EB201A45D7009948F8 /* E-100_strip2.png */,
-				886B61E9201A45D7009948F8 /* KV-2_strip2.png */,
-				886B61EA201A45D7009948F8 /* M-6_strip2.png */,
-				886B61EE201A45D7009948F8 /* Pz.Kpfw.IV_strip2.png */,
-				886B61EC201A45D7009948F8 /* Pz.Kpfw.IV-G_strip2.png */,
+				886B61EB201A45D7009948F8 /* tank2.png */,
+				886B61E9201A45D7009948F8 /* tank3.png */,
+				88DC7362201DA99100B98450 /* missile.png */,
+				886B61EA201A45D7009948F8 /* tank4.png */,
+				886B61EE201A45D7009948F8 /* tank5.png */,
+				886B61EC201A45D7009948F8 /* tank0.png */,
 				886B61E8201A45D6009948F8 /* T34_strip2.png */,
 				886B61EF201A45D7009948F8 /* tank1.png */,
 				886B61ED201A45D7009948F8 /* Tiger-II_strip2.png */,
@@ -163,13 +181,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				886B61F6201A45D7009948F8 /* Pz.Kpfw.IV_strip2.png in Resources */,
-				886B61F2201A45D7009948F8 /* M-6_strip2.png in Resources */,
-				886B61F1201A45D7009948F8 /* KV-2_strip2.png in Resources */,
+				886B61F6201A45D7009948F8 /* tank5.png in Resources */,
+				886B61F2201A45D7009948F8 /* tank4.png in Resources */,
+				886B61F1201A45D7009948F8 /* tank3.png in Resources */,
 				886B61E2201A459C009948F8 /* icon.png in Resources */,
 				886B61F0201A45D7009948F8 /* T34_strip2.png in Resources */,
-				886B61F4201A45D7009948F8 /* Pz.Kpfw.IV-G_strip2.png in Resources */,
-				886B61F3201A45D7009948F8 /* E-100_strip2.png in Resources */,
+				886B61F4201A45D7009948F8 /* tank0.png in Resources */,
+				886B61F3201A45D7009948F8 /* tank2.png in Resources */,
+				88DC7363201DA99100B98450 /* missile.png in Resources */,
 				886B61F5201A45D7009948F8 /* Tiger-II_strip2.png in Resources */,
 				886B61F7201A45D7009948F8 /* tank1.png in Resources */,
 			);
@@ -200,6 +219,9 @@
 			files = (
 				886B61D9201A459C009948F8 /* main.cpp in Sources */,
 				886B61D6201A459C009948F8 /* ResourcePath.mm in Sources */,
+				88F867F02030278600C9E122 /* player.cpp in Sources */,
+				88DC7366201DAAC500B98450 /* missile.cpp in Sources */,
+				8839FED920278295008A9194 /* message.cpp in Sources */,
 				886B61FA201A4B25009948F8 /* tank.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
