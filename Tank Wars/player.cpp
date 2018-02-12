@@ -19,3 +19,7 @@ Player::~Player(){}
 void Player::draw(){
     playerTank.draw(*window);
 }
+
+sf::IpAddress Player::getIP(){
+    return playerIP;
+}

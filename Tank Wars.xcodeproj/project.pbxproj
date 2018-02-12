@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8839FED920278295008A9194 /* message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8839FED720278295008A9194 /* message.cpp */; };
+		884B0F1A2030A82F009A484E /* playerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 884B0F182030A82F009A484E /* playerManager.cpp */; };
+		884B0F1D2030AC1C009A484E /* missileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 884B0F1B2030AC1C009A484E /* missileManager.cpp */; };
 		886B61D6201A459C009948F8 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 886B61D5201A459C009948F8 /* ResourcePath.mm */; };
 		886B61D9201A459C009948F8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 886B61D8201A459C009948F8 /* main.cpp */; };
 		886B61E2201A459C009948F8 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61E1201A459C009948F8 /* icon.png */; };
@@ -28,6 +30,10 @@
 /* Begin PBXFileReference section */
 		8839FED720278295008A9194 /* message.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = message.cpp; sourceTree = "<group>"; };
 		8839FED820278295008A9194 /* message.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = message.hpp; sourceTree = "<group>"; };
+		884B0F182030A82F009A484E /* playerManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = playerManager.cpp; sourceTree = "<group>"; };
+		884B0F192030A82F009A484E /* playerManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = playerManager.hpp; sourceTree = "<group>"; };
+		884B0F1B2030AC1C009A484E /* missileManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = missileManager.cpp; sourceTree = "<group>"; };
+		884B0F1C2030AC1C009A484E /* missileManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = missileManager.hpp; sourceTree = "<group>"; };
 		886B61D0201A459C009948F8 /* Tank Wars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tank Wars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B61D4201A459C009948F8 /* Tank Wars-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tank Wars-Info.plist"; sourceTree = "<group>"; };
 		886B61D5201A459C009948F8 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
@@ -83,6 +89,10 @@
 			children = (
 				88F867EE2030278600C9E122 /* player.cpp */,
 				88F867EF2030278600C9E122 /* player.hpp */,
+				884B0F182030A82F009A484E /* playerManager.cpp */,
+				884B0F192030A82F009A484E /* playerManager.hpp */,
+				884B0F1B2030AC1C009A484E /* missileManager.cpp */,
+				884B0F1C2030AC1C009A484E /* missileManager.hpp */,
 				8839FED720278295008A9194 /* message.cpp */,
 				8839FED820278295008A9194 /* message.hpp */,
 				886B61D5201A459C009948F8 /* ResourcePath.mm */,
@@ -221,8 +231,10 @@
 				886B61D6201A459C009948F8 /* ResourcePath.mm in Sources */,
 				88F867F02030278600C9E122 /* player.cpp in Sources */,
 				88DC7366201DAAC500B98450 /* missile.cpp in Sources */,
+				884B0F1D2030AC1C009A484E /* missileManager.cpp in Sources */,
 				8839FED920278295008A9194 /* message.cpp in Sources */,
 				886B61FA201A4B25009948F8 /* tank.cpp in Sources */,
+				884B0F1A2030A82F009A484E /* playerManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

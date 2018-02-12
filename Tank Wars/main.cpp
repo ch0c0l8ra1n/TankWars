@@ -10,6 +10,8 @@
 #include <iostream>
 #include <string>
 #include "player.hpp"
+#include "missileManager.hpp"
+#include "playerManager.hpp"
 
 void clearBuffer(char * start,std::size_t size){
     for (uint i =0;i<size+1;i++){
@@ -77,31 +79,52 @@ int main(int, char const**){
     std::size_t received;
     
     std::vector <Player> players;
+    std::vector <Missile> missiles;
+    
+    //MissileManager missileManager;
+    PlayerManager playerManager;
     
     while(window.isOpen()){
         
-        
         deltaTime = clock.restart().asSeconds();
         
-        while(true){
-            if (serverSocket.receive(receivingBuffer, 1024 ,received, tempIP, tempPort)){
+        //accpets at maximum 64 udp messages.
+        for(int i=0;i<64;i++){
+            
+            //if no more messages then stop waiting for messages.
+            if (serverSocket.receive(receivingBuffer, 1024 ,received, tempIP, tempPort) != sf::Socket::Done){
                 break;
-                
             }
+            
+            //Handle JOIN, LEAVE, AND BUTTON_PRESS conditions
             else{
-                std::cout<<receivingBuffer<<"\n";
+                MessageTypes message;
+                memcpy(&message, receivingBuffer, sizeof(message));
+                
+                if (message == JOIN){
+                    char name[10];
+                    short texId;
+                    memcpy(name, receivingBuffer + sizeof(message), 10);
+                    memcpy(&texId, receivingBuffer + sizeof(message) + sizeof(name) , sizeof(texId));
+                    texId %= 6;
+                    std::cout<<"Player rjpj"<<name<<" with tank texture "<< texId <<" has entered the game\nIP: "<<tempIP.toString()<<"\n";
+                    playerManager.addPlayer( Player(tempIP.toString(), tempPort, tankTextures[texId], window ) );
+                }
+                else if(message == LEAVE){
+                    std::cout<<"Left\n";
+                    playerManager.removePlayerByIP(tempIP);
+                }
+                else if(message == BUTTON_PRESS){
+                    
+                }
+                
+                //self-explanatory
                 clearBuffer(receivingBuffer, received);
-                players.push_back( Player(tempIP.toString(), tempPort, tankTexture , window ) );
             }
         }
-        window.clear( sf::Color( 155 , 129 , 80 ) );
         
-        for (int i=0;i<players.size();i++){
-            players[i].playerTank.update(deltaTime);
-            players[i].playerTank.draw(window);
-            //std::cout<<players[i].playerTank.getPosition().x<<" "<<players[i].playerTank.getPosition().y<<"\n";
-        }
-        
+        playerManager.updatePlayers(deltaTime);
+        playerManager.drawPlayers(window);
         
         sf::Event evnt;
         while(window.pollEvent(evnt)){
@@ -118,10 +141,10 @@ int main(int, char const**){
         
         
         window.setView(view);
-        
         window.draw(temp);
-        
         window.display();
+        
+        window.clear( sf::Color( 155 , 129 , 80 ) );
     }
 
     return EXIT_SUCCESS;

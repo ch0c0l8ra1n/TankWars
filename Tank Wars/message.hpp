@@ -9,16 +9,7 @@
 #ifndef message_hpp
 #define message_hpp
 
-#include <stdio.h>
-#include <string>
-
-class Message{
-public:
-    Message(std::string str);
-    ~Message();
-private:
-    std::string type;
-    std::string* content;
-};
+enum Buttons {UP, DOWN, LEFT, RIGHT, W, A, S, D, SPACE};
+enum MessageTypes {JOIN, LEAVE, BUTTON_PRESS};
 
 #endif /* message_hpp */
