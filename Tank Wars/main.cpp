@@ -4,17 +4,15 @@
 
 #include "ResourcePath.hpp"
 
-#include "tank.hpp"
 #include "missile.hpp"
 #include "message.hpp"
 #include <iostream>
 #include <string>
-#include "player.hpp"
 #include "missileManager.hpp"
 #include "playerManager.hpp"
 
 void clearBuffer(char * start,std::size_t size){
-    for (uint i =0;i<size+1;i++){
+    for (uint i =0;i<std::min((int)size+1,1024);i++){
         start[i] = '\0';
     }
 }
@@ -44,7 +42,7 @@ int main(int, char const**){
     
     
     //Initalize the window
-    sf::RenderWindow window( sf::VideoMode( 2160 , 2160 ) , "Tank Wars" );
+    sf::RenderWindow window( sf::VideoMode( 2160 , 1440 ) , "Tank Wars" );
     window.setVerticalSyncEnabled(true);
     window.setFramerateLimit(60);
     
@@ -78,11 +76,21 @@ int main(int, char const**){
     
     std::size_t received;
     
+    sf::Texture bTex;
+    bTex.loadFromFile( resourcePath() + "fireball.png" );
+    
+    sf::CircleShape ball;
+    ball.setTexture(&bTex);
+    ball.setRadius(10.0f);
+    ball.setPosition(450.0f, 450.0f);
+    
     std::vector <Player> players;
     std::vector <Missile> missiles;
-    
     //MissileManager missileManager;
     PlayerManager playerManager;
+    tempIP = "127.0.0.1";
+    playerManager.addPlayer( Player(tempIP.toString(), 43250, tankTextures[2], window ) );
+    Missile missile( sf::Vector2f(1.0f,0.0f), playerManager.getPlayer(0) );
     
     while(window.isOpen()){
         
@@ -107,18 +115,16 @@ int main(int, char const**){
                     memcpy(name, receivingBuffer + sizeof(message), 10);
                     memcpy(&texId, receivingBuffer + sizeof(message) + sizeof(name) , sizeof(texId));
                     texId %= 6;
-                    std::cout<<"Player rjpj"<<name<<" with tank texture "<< texId <<" has entered the game\nIP: "<<tempIP.toString()<<"\n";
+                    std::cout<<"Player "<<name<<" with tank texture "<< texId <<" has entered the game\nIP: "<<tempIP.toString()<<"\n";
                     playerManager.addPlayer( Player(tempIP.toString(), tempPort, tankTextures[texId], window ) );
                 }
                 else if(message == LEAVE){
-                    std::cout<<"Left\n";
                     playerManager.removePlayerByIP(tempIP);
                 }
                 else if(message == BUTTON_PRESS){
                     
                 }
                 
-                //self-explanatory
                 clearBuffer(receivingBuffer, received);
             }
         }
@@ -141,8 +147,11 @@ int main(int, char const**){
         
         
         window.setView(view);
-        window.draw(temp);
+        //window.draw(temp);
+        window.draw(ball);
         window.display();
+        
+        ball.move(1.0f, 0.1f);
         
         window.clear( sf::Color( 155 , 129 , 80 ) );
     }

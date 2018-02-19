@@ -12,11 +12,12 @@
 
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
-#include "tank.hpp"
+#include "player.hpp"
+#include "ResourcePath.hpp"
 
 class Missile{
 public:
-    Missile(sf::Texture * texture, sf::Vector2f velocity );
+    Missile(sf::Vector2f velocity, Player player  );
     ~Missile();
     void update(float deltaTime);
     void draw(sf::RenderWindow & window);
@@ -24,7 +25,9 @@ public:
 private:
     sf::Vector2f velocity;
     sf::Texture texture;
-    sf::RectangleShape body;
+    sf::CircleShape body;
+    Player originPlayer;
+    
 };
 
 #endif /* missile_hpp */

@@ -25,6 +25,7 @@ public:
     bool addPlayer(Player player);
     bool removePlayerByIP(sf::IpAddress ip);
     void drawPlayers(sf::RenderWindow& window);
+    Player getPlayer(int id);
     
     ~PlayerManager();
 };

@@ -43,3 +43,7 @@ void PlayerManager::drawPlayers(sf::RenderWindow& window){
     }
 }
 
+Player PlayerManager::getPlayer(int id){
+    return players[id];
+}
+

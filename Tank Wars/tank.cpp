@@ -8,10 +8,10 @@ Tank::Tank(sf::Texture* texture ){
     linearAcc = 300.0f;
     angularAcc = 100.0f;
     
-    turretVelocity = 2.0f;
+    turretVelocity = 100.0f;
     
-    linearVelocity.x = 0.0f;
-    linearVelocity.y = 0.0f;
+    velocityVector.x = 0.0f;
+    velocityVector.y = 0.0f;
     maxLinearVelocity = 200.0f;
     
     angularVelocity = 0.0f;
@@ -47,8 +47,8 @@ Tank::Tank(sf::Texture* texture ){
     body.setTextureRect(bodyRect);
     turret.setTextureRect(turretRect);
     
-    body.setRotation(270);
-    turret.setRotation(270);
+    //body.setRotation(270);
+    //turret.setRotation(270);
     
     
 }
@@ -74,6 +74,18 @@ sf::Vector2f Tank::getPosition(){
 }
 
 void Tank::update(float deltaTime){
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+        velocityScalar += linearAcc * deltaTime;
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+        velocityScalar -= linearAcc * deltaTime;
+    }
+    else{
+        float delRetardation = linearAcc * deltaTime;
+        velocityScalar -= (delRetardation>fabs(velocityScalar)) ? velocityScalar : sign(velocityScalar)*delRetardation;
+    }
+    velocityScalar = clamp(velocityScalar , maxLinearVelocity);
+    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
         angularVelocity -= angularAcc * deltaTime;
     }
@@ -81,64 +93,59 @@ void Tank::update(float deltaTime){
         angularVelocity += angularAcc * deltaTime;
     }
     else{
-        angularVelocity = reduce(angularVelocity);
+        float delRetardation = angularAcc * deltaTime;
+        angularVelocity -= (delRetardation>fabs(angularVelocity)) ? angularVelocity : sign(angularVelocity)*delRetardation;
     }
     
-    angularVelocity = posOrNeg(angularVelocity) * std::min( fabs(angularVelocity) , maxAngularVelocity );
+    float delTurretTheta = 0;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+        delTurretTheta -= turretVelocity * deltaTime;
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+        delTurretTheta += turretVelocity * deltaTime;
+    }
+    turretOrientation += delTurretTheta;
+    turretOrientation = fmod(turretOrientation,360);
+    turretOrientation = (turretOrientation<0) ? 360-turretOrientation : turretOrientation;
+    
+    angularVelocity = clamp(angularVelocity,maxAngularVelocity);
+
+    
     float deltaTheta = angularVelocity * deltaTime;
     bodyOrientation += deltaTheta;
+    bodyOrientation = fmod(bodyOrientation,360);
+    bodyOrientation = (bodyOrientation<0) ? 360-bodyOrientation : bodyOrientation;
+    std::cout<<bodyOrientation<<"\n";
+    
+    
     
     sf::Vector2f unitVector;
-    unitVector.x = cos(bodyOrientation * PI/180);
-    unitVector.y = sin(bodyOrientation * PI/180);
+    unitVector.x = -sin(bodyOrientation*PI/180);
+    unitVector.y = cos(bodyOrientation*PI/180);
     
-    
-    float absAcc = linearAcc * deltaTime;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-        linearVelocity.y += unitVector.y * absAcc;
-        linearVelocity.x += unitVector.x * absAcc;
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-        linearVelocity.y -= unitVector.y * absAcc;
-        linearVelocity.x -= unitVector.x * absAcc;
-    }
-    else{
-        linearVelocity.y = reduce(linearVelocity.y);
-        linearVelocity.x = reduce(linearVelocity.x);
-    }
-    
-    linearVelocity.x = posOrNeg(linearVelocity.x) * std::min( fabs(linearVelocity.x) , maxLinearVelocity );
-    linearVelocity.y = posOrNeg(linearVelocity.y) * std::min( fabs(linearVelocity.y) , maxLinearVelocity );
+    velocityVector.x = velocityScalar * unitVector.x;
+    velocityVector.y = velocityScalar * unitVector.y;
     
     sf::Vector2f movement;
-    movement.x = linearVelocity.x * deltaTime;
-    movement.y = linearVelocity.y * deltaTime;
+    movement.x = velocityVector.x * deltaTime;
+    movement.y = velocityVector.y * deltaTime;
     
-    float delTurretTheta = 0.0f;
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-        turretOrientation -= turretVelocity;
-        delTurretTheta = -turretVelocity;
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-        turretOrientation += turretVelocity;
-        delTurretTheta = turretVelocity;
-    }
-    
-    body.rotate(deltaTheta);
     body.move(movement);
     turret.move(movement);
+    body.rotate(deltaTheta);
     turret.rotate(delTurretTheta);
+    
+    
 }
 
 
-float Tank::reduce(float angularVelocity){
-    if (abs(angularVelocity) > 10.0f)
-        return posOrNeg(angularVelocity) * (abs(angularVelocity) - 10.0f);
-    else
-        return 0.0f;
+float Tank::sign(float temp){
+    return (temp<0) ? std::max(-1.0f,temp) : std::min(temp,1.0f);
 }
 
-
+float Tank::clamp(float var, float limit){
+    return std::min( std::max(var, -limit) , limit);
+}
 
 
 

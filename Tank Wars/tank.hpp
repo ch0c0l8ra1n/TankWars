@@ -23,7 +23,8 @@ public:
     sf::Vector2f getPosition();
     void update(float deltaTime);
     int posOrNeg(float x);
-    float reduce(float angularVelocity);
+    float sign(float temp);
+    float clamp(float var, float limit);
     
     
 
@@ -36,9 +37,11 @@ private:
     float linearAcc;
     float angularAcc;
     
-    sf::Vector2f linearVelocity;
+    sf::Vector2f velocityVector;
     float maxLinearVelocity;
     float turretVelocity;
+    float velocityScalar;
+    
     
     float angularVelocity;
     float maxAngularVelocity;
