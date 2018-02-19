@@ -8,12 +8,12 @@
 
 #include "missile.hpp"
 
-Missile::Missile(sf::Vector2f velocity, Player player):originPlayer(player){
-    this->velocity = velocity;
-    texture.loadFromFile(resourcePath() + "fireball.png");
+Missile::Missile( Player& player, sf::Texture& texture):originPlayer(&player){
+    velocity = sf::Vector2f(100.0f,0.0f);
     body.setTexture(&texture);
-    body.setPosition(512, 512);
+    //body.setFillColor(sf::Color(0,0,0));
     body.setRadius(10.0f);
+    body.setPosition(512.0f, 512.0f);
 }
 
 Missile::~Missile(){}

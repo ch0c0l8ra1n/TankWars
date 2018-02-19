@@ -14,19 +14,20 @@
 #include <SFML/Graphics.hpp>
 #include "player.hpp"
 #include "ResourcePath.hpp"
+#include <iostream>
 
 class Missile{
 public:
-    Missile(sf::Vector2f velocity, Player player  );
+    Missile(Player& player, sf::Texture& texture );
     ~Missile();
     void update(float deltaTime);
     void draw(sf::RenderWindow & window);
+    sf::CircleShape body;
     
 private:
     sf::Vector2f velocity;
-    sf::Texture texture;
-    sf::CircleShape body;
-    Player originPlayer;
+    
+    Player* originPlayer;
     
 };
 

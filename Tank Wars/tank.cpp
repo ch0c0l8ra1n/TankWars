@@ -8,7 +8,9 @@ Tank::Tank(sf::Texture* texture ){
     linearAcc = 300.0f;
     angularAcc = 100.0f;
     
-    turretVelocity = 100.0f;
+    turretVelocity = 150.0f;
+    
+    velocityScalar = 0.0f;
     
     velocityVector.x = 0.0f;
     velocityVector.y = 0.0f;
@@ -108,6 +110,7 @@ void Tank::update(float deltaTime){
     turretOrientation = fmod(turretOrientation,360);
     turretOrientation = (turretOrientation<0) ? 360-turretOrientation : turretOrientation;
     
+    
     angularVelocity = clamp(angularVelocity,maxAngularVelocity);
 
     
@@ -115,7 +118,6 @@ void Tank::update(float deltaTime){
     bodyOrientation += deltaTheta;
     bodyOrientation = fmod(bodyOrientation,360);
     bodyOrientation = (bodyOrientation<0) ? 360-bodyOrientation : bodyOrientation;
-    std::cout<<bodyOrientation<<"\n";
     
     
     

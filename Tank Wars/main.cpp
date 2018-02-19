@@ -86,11 +86,13 @@ int main(int, char const**){
     
     std::vector <Player> players;
     std::vector <Missile> missiles;
-    //MissileManager missileManager;
-    PlayerManager playerManager;
+    MissileManager missileManager(window);
+    PlayerManager playerManager(missileManager);
     tempIP = "127.0.0.1";
     playerManager.addPlayer( Player(tempIP.toString(), 43250, tankTextures[2], window ) );
-    Missile missile( sf::Vector2f(1.0f,0.0f), playerManager.getPlayer(0) );
+    missileManager.addMissile(playerManager.getPlayer(0));
+    missileManager.missiles[0].body.setTexture(&bTex);
+    
     
     while(window.isOpen()){
         
@@ -131,6 +133,7 @@ int main(int, char const**){
         
         playerManager.updatePlayers(deltaTime);
         playerManager.drawPlayers(window);
+        missileManager.updateMissiles(deltaTime);
         
         sf::Event evnt;
         while(window.pollEvent(evnt)){
@@ -148,10 +151,10 @@ int main(int, char const**){
         
         window.setView(view);
         //window.draw(temp);
+        ball.move(1.0f, 0.1f);
         window.draw(ball);
         window.display();
         
-        ball.move(1.0f, 0.1f);
         
         window.clear( sf::Color( 155 , 129 , 80 ) );
     }

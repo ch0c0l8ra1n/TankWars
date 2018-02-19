@@ -13,7 +13,6 @@
 #include <SFML/Network.hpp>
 #include "tank.hpp"
 #include <SFML/Graphics.hpp>
-//#include "missileManager.hpp"
 
 
 class Player{
@@ -21,12 +20,10 @@ private:
     sf::IpAddress playerIP;
     unsigned short playerPort;
     sf::RenderWindow* window;
-    //MissileManager* missileManager;
     
 public:
     Player(sf::IpAddress IP , unsigned short port , sf::Texture& texture , sf::RenderWindow& win);
     ~Player();
-    void setTank();
     void destroyTank();
     void draw();
     sf::IpAddress getIP();

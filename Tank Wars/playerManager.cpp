@@ -9,7 +9,9 @@
 #include "playerManager.hpp"
 #include <iostream>
 
-PlayerManager::PlayerManager(){}
+PlayerManager::PlayerManager(MissileManager& misM){
+    missileManager = &misM;
+}
 PlayerManager::~PlayerManager(){}
 
 bool PlayerManager::addPlayer(Player player){
@@ -32,6 +34,9 @@ bool PlayerManager::removePlayerByIP(sf::IpAddress ip){
     return false;
 }
 void PlayerManager::updatePlayers(float deltaTime){
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+        missileManager->addMissile(players[0]);
+    }
     for(int i=0;i<players.size();i++){
         players[i].playerTank.update(deltaTime);
     }
@@ -43,7 +48,7 @@ void PlayerManager::drawPlayers(sf::RenderWindow& window){
     }
 }
 
-Player PlayerManager::getPlayer(int id){
+Player& PlayerManager::getPlayer(int id){
     return players[id];
 }
 
