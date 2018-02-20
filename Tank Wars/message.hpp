@@ -12,7 +12,7 @@
 #include <iostream>
 
 enum Button {UP, DOWN, LEFT, RIGHT, W, A, S, D, SPACE};
-enum MessageTypes {JOIN, LEAVE, BUTTON_PRESS};
+enum MessageTypes {JOIN, LEAVE, BUTTON_PRESS, CONNECTION_ALIVE};
 
 struct joinMessage{
     MessageTypes messageType;
@@ -30,6 +30,11 @@ struct buttonsPressed{
     MessageTypes messageType;
     uint64_t hash;
     Button buttons[4];
+};
+
+struct connectionAlive{
+    MessageTypes messageType;
+    uint64_t hash;
 };
 
 #endif /* message_hpp */
