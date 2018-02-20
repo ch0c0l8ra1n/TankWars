@@ -26,11 +26,10 @@ struct leaveMessage{
     long long hash;
 };
 
-struct buttonPress{
+struct buttonsPressed{
     MessageTypes messageType;
-    long long hash;
-    Button button;
+    uint64_t hash;
+    Button buttons[4];
 };
-
 
 #endif /* message_hpp */

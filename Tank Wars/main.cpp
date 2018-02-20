@@ -109,23 +109,28 @@ int main(int, char const**){
             else{
                 MessageTypes * msg;
                 msg = (MessageTypes *) receivingBuffer;
-                joinMessage* jm;
-                leaveMessage* lm;
-                buttonPress* bp;
+                
+                buttonsPressed* bp;
+
                 
                 switch (*msg) {
                     case JOIN:
                         std::cout<<"JOIN\n";
+                        joinMessage* jm;
                         jm = (joinMessage*) receivingBuffer;
                         playerManager.addPlayer( Player(jm->hash, tempIP, tempPort, tankTextures[jm->tankTextureId] , window) );
                         break;
                     case LEAVE:
                         std::cout<<"LEAVE\n";
+                        leaveMessage* lm;
                         lm = (leaveMessage*) receivingBuffer;
                         playerManager.removePlayer(lm->hash);
                         break;
                     case BUTTON_PRESS:
                         std::cout<<"BUTTON_PRESS\n";
+                        buttonsPressed* bp;
+                        
+                        
                         break;
                     default:
                         break;
