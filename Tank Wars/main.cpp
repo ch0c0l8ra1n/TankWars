@@ -89,10 +89,9 @@ int main(int, char const**){
     MissileManager missileManager(window);
     PlayerManager playerManager(missileManager);
     tempIP = "127.0.0.1";
-    playerManager.addPlayer( Player(tempIP.toString(), 43250, tankTextures[2], window ) );
+    playerManager.addPlayer( Player(0,tempIP.toString(), 43250, tankTextures[2], window ) );
     missileManager.addMissile(playerManager.getPlayer(0));
     missileManager.missiles[0].body.setTexture(&bTex);
-    
     
     while(window.isOpen()){
         
@@ -108,23 +107,28 @@ int main(int, char const**){
             
             //Handle JOIN, LEAVE, AND BUTTON_PRESS conditions
             else{
-                MessageTypes message;
-                memcpy(&message, receivingBuffer, sizeof(message));
+                MessageTypes * msg;
+                msg = (MessageTypes *) receivingBuffer;
+                joinMessage* jm;
+                leaveMessage* lm;
+                buttonPress* bp;
                 
-                if (message == JOIN){
-                    char name[10];
-                    short texId;
-                    memcpy(name, receivingBuffer + sizeof(message), 10);
-                    memcpy(&texId, receivingBuffer + sizeof(message) + sizeof(name) , sizeof(texId));
-                    texId %= 6;
-                    std::cout<<"Player "<<name<<" with tank texture "<< texId <<" has entered the game\nIP: "<<tempIP.toString()<<"\n";
-                    playerManager.addPlayer( Player(tempIP.toString(), tempPort, tankTextures[texId], window ) );
-                }
-                else if(message == LEAVE){
-                    playerManager.removePlayerByIP(tempIP);
-                }
-                else if(message == BUTTON_PRESS){
-                    
+                switch (*msg) {
+                    case JOIN:
+                        std::cout<<"JOIN\n";
+                        jm = (joinMessage*) receivingBuffer;
+                        playerManager.addPlayer( Player(jm->hash, tempIP, tempPort, tankTextures[jm->tankTextureId] , window) );
+                        break;
+                    case LEAVE:
+                        std::cout<<"LEAVE\n";
+                        lm = (leaveMessage*) receivingBuffer;
+                        playerManager.removePlayer(lm->hash);
+                        break;
+                    case BUTTON_PRESS:
+                        std::cout<<"BUTTON_PRESS\n";
+                        break;
+                    default:
+                        break;
                 }
                 
                 clearBuffer(receivingBuffer, received);

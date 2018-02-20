@@ -6,15 +6,15 @@
 Tank::Tank(sf::Texture* texture ){
     
     linearAcc = 300.0f;
-    angularAcc = 100.0f;
+    angularAcc = 200.0f;
     
     turretVelocity = 150.0f;
     
-    velocityScalar = 0.0f;
+    velocityScalar = 200.0f;
     
     velocityVector.x = 0.0f;
     velocityVector.y = 0.0f;
-    maxLinearVelocity = 200.0f;
+    maxLinearVelocity = 300.0f;
     
     angularVelocity = 0.0f;
     maxAngularVelocity = 100.0f;

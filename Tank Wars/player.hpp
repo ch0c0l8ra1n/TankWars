@@ -20,13 +20,15 @@ private:
     sf::IpAddress playerIP;
     unsigned short playerPort;
     sf::RenderWindow* window;
+    uint64_t hash;
     
 public:
-    Player(sf::IpAddress IP , unsigned short port , sf::Texture& texture , sf::RenderWindow& win);
+    Player(uint64_t hash, sf::IpAddress IP , unsigned short port , sf::Texture& texture , sf::RenderWindow& win);
     ~Player();
     void destroyTank();
     void draw();
     sf::IpAddress getIP();
+    uint64_t getHash();
     Tank playerTank;
 };
 

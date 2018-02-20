@@ -16,15 +16,15 @@ PlayerManager::~PlayerManager(){}
 
 bool PlayerManager::addPlayer(Player player){
     for(int i=0;i<players.size();i++){
-        if ( players[i].getIP() == player.getIP() ){
-            //return false;
+        if ( players[i].getHash() == player.getHash() ){
+            return false;
         }
     }
     players.push_back(player);
     return true;
 }
 
-bool PlayerManager::removePlayerByIP(sf::IpAddress ip){
+bool PlayerManager::removePlayersByIP(sf::IpAddress ip){
     for (int i=0;i<players.size();i++){
         if (players[i].getIP() == ip){
             players.erase(players.begin() + i);
@@ -52,3 +52,12 @@ Player& PlayerManager::getPlayer(int id){
     return players[id];
 }
 
+bool PlayerManager::removePlayer(uint64_t hash){
+    for (int i=0;i<players.size();i++){
+        if (players[i].getHash() == hash){
+            players.erase(players.begin() + i);
+            return true;
+        }
+    }
+    return false;
+}

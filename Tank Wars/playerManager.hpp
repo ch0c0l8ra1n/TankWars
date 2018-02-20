@@ -25,7 +25,8 @@ public:
     PlayerManager(MissileManager& misM);
     void updatePlayers(float deltaTime);
     bool addPlayer(Player player);
-    bool removePlayerByIP(sf::IpAddress ip);
+    bool removePlayersByIP(sf::IpAddress ip);
+    bool removePlayer(uint64_t hash);
     void drawPlayers(sf::RenderWindow& window);
     Player& getPlayer(int id);
     

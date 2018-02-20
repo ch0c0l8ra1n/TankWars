@@ -8,9 +8,10 @@
 
 #include "player.hpp"
 
-Player::Player(sf::IpAddress IP , unsigned short port, sf::Texture& texture, sf::RenderWindow& win):playerTank(&texture){
+Player::Player(uint64_t hash,sf::IpAddress IP , unsigned short port, sf::Texture& texture, sf::RenderWindow& win):playerTank(&texture){
     playerIP = IP;
     playerPort = port;
+    this->hash = hash;
     window = &win;
 }
 
@@ -22,4 +23,8 @@ void Player::draw(){
 
 sf::IpAddress Player::getIP(){
     return playerIP;
+}
+
+uint64_t Player::getHash(){
+    return hash;
 }

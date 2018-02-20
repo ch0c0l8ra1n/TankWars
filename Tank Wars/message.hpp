@@ -9,7 +9,28 @@
 #ifndef message_hpp
 #define message_hpp
 
-enum Buttons {UP, DOWN, LEFT, RIGHT, W, A, S, D, SPACE};
+#include <iostream>
+
+enum Button {UP, DOWN, LEFT, RIGHT, W, A, S, D, SPACE};
 enum MessageTypes {JOIN, LEAVE, BUTTON_PRESS};
+
+struct joinMessage{
+    MessageTypes messageType;
+    uint64_t hash;
+    char name[20];
+    short tankTextureId;
+};
+
+struct leaveMessage{
+    MessageTypes messageType;
+    long long hash;
+};
+
+struct buttonPress{
+    MessageTypes messageType;
+    long long hash;
+    Button button;
+};
+
 
 #endif /* message_hpp */
