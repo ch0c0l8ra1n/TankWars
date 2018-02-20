@@ -29,7 +29,7 @@ struct leaveMessage{
 struct buttonsPressed{
     MessageTypes messageType;
     uint64_t hash;
-    Button buttons[4];
+    Button buttons[9];
 };
 
 struct connectionAlive{

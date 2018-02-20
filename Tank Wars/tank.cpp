@@ -49,6 +49,10 @@ Tank::Tank(sf::Texture* texture ){
     body.setTextureRect(bodyRect);
     turret.setTextureRect(turretRect);
     
+    for(int i=0;i<9;i++){
+        pressedButtons[i]= false;
+    }
+    
     //body.setRotation(270);
     //turret.setRotation(270);
     
@@ -149,7 +153,11 @@ float Tank::clamp(float var, float limit){
     return std::min( std::max(var, -limit) , limit);
 }
 
-
+void Tank::setPressedButtons(bool * buttons){
+    for (int i=0;i<9;i++){
+        pressedButtons[i] = buttons[i];
+    }
+}
 
 
 

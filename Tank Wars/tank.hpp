@@ -25,6 +25,7 @@ public:
     int posOrNeg(float x);
     float sign(float temp);
     float clamp(float var, float limit);
+    void setPressedButtons(bool * buttons);
     
     
 
@@ -48,6 +49,7 @@ private:
     
     float bodyOrientation;
     float turretOrientation;
+    bool pressedButtons[9];
     
     
     

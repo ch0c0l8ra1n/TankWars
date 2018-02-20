@@ -129,6 +129,8 @@ int main(int, char const**){
                     case BUTTON_PRESS:
                         std::cout<<"BUTTON_PRESS\n";
                         buttonsPressed* bp;
+                        bp = (buttonsPressed*) receivingBuffer;
+                        
                     case CONNECTION_ALIVE:
                         std::cout<<"CONNECTION_ALIVE\n";
                         break;
