@@ -23,7 +23,7 @@ public:
     std::vector<Missile> missiles;
     MissileManager(sf::RenderWindow& win);
     ~MissileManager(){}
-    void addMissile(Player& player);
+    void addMissile(Player* player);
     void updateMissiles(float deltaTime);
 };
 

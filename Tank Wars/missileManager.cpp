@@ -13,7 +13,7 @@ MissileManager::MissileManager(sf::RenderWindow& win){
     texture.loadFromFile(resourcePath() + "fireball.png");
 }
 
-void MissileManager::addMissile(Player& player){
+void MissileManager::addMissile(Player* player){
     Missile temp(player,texture);
     missiles.push_back( temp );
 }

@@ -31,6 +31,7 @@ public:
     bool removePlayer(uint64_t hash);
     void drawPlayers(sf::RenderWindow& window);
     void setPlayerButtons(uint64_t hash, bool * buttons);
+    Player* getPlayerByHash(uint64_t hash);
     Player& getPlayer(int id);
     
     ~PlayerManager();

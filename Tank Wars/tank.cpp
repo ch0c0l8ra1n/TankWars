@@ -1,9 +1,20 @@
 #include "tank.hpp"
 #include <iostream>
 
+#include "missileManager.hpp"
+#include "player.hpp"
+#include <sys/time.h>
+
 #define PI 3.14159265
 
+long long getMs(){
+    struct timeval tp;
+    gettimeofday(&tp, NULL);
+    return tp.tv_sec * 1000 + tp.tv_usec / 1000;
+}
+
 Tank::Tank(sf::Texture* texture, MissileManager* mManager ){
+    lastMissileTime = getMs() - 1000;
     
     linearAcc = 300.0f;
     angularAcc = 200.0f;
@@ -118,7 +129,11 @@ void Tank::update(float deltaTime){
     }
     
     if(pressedButtons[SPACE]){
-        //missileManager->
+        std::cout<<getMs()<<"\t"<<lastMissileTime<<"\n";
+        if (getMs() - lastMissileTime> 300){
+            missileManager->addMissile(player);
+            lastMissileTime = getMs();
+        }
     }
 
     turretOrientation += delTurretTheta;
@@ -170,10 +185,14 @@ void Tank::setPressedButtons(bool * buttons){
     }
 }
 
-void ::Tank::setPlayerRef(Player *p){
+void Tank::setPlayerRef(Player *p){
     player = p;
 }
 
+
+float Tank::getTurretOrientation(){
+    return turretOrientation;
+}
 
 
 

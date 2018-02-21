@@ -8,12 +8,22 @@
 
 #include "missile.hpp"
 
-Missile::Missile( Player& player, sf::Texture& texture):originPlayer(&player){
-    velocity = sf::Vector2f(100.0f,0.0f);
+
+
+Missile::Missile( Player* player, sf::Texture& texture):originPlayer(player){
+    velocityScalar = 500.0f;
     body.setTexture(&texture);
-    //body.setFillColor(sf::Color(0,0,0));
     body.setRadius(10.0f);
-    body.setPosition(512.0f, 512.0f);
+    body.setOrigin(5.0f, 5.0f);
+    std::cout<<player->playerTank.getPosition().x<<"\t"<<player->playerTank.getPosition().y<<"\n";
+    std::cout<<&(player->playerTank)<<"\n";
+    body.setPosition(player->playerTank.getPosition());
+    orientation = player->playerTank.getTurretOrientation();
+    unitVector.x = -sin(orientation*PI/180);
+    unitVector.y = cos(orientation*PI/180);
+    velocity.x = velocityScalar * unitVector.x;
+    velocity.y = velocityScalar * unitVector.y;
+    body.move(velocity/7.0f);
 }
 
 Missile::~Missile(){}

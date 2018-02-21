@@ -90,8 +90,8 @@ int main(int, char const**){
     PlayerManager playerManager(missileManager);
     tempIP = "127.0.0.1";
     //playerManager.addPlayer( Player(0,tempIP.toString(), 43250, tankTextures[2], window ) );
-    missileManager.addMissile(playerManager.getPlayer(0));
-    missileManager.missiles[0].body.setTexture(&bTex);
+    //missileManager.addMissile(playerManager.getPlayer(0));
+    //missileManager.missiles[0].body.setTexture(&bTex);
     
     while(window.isOpen()){
         
@@ -130,10 +130,6 @@ int main(int, char const**){
                         buttonsPressed* bp;
                         bp = (buttonsPressed*) receivingBuffer;
                         playerManager.setPlayerButtons(bp->hash, bp->buttons);
-                        for(int i=0;i<9;i++){
-                            std::cout<<bp->buttons[i]<<"\t";
-                        }
-                        std::cout<<"\n";
                         break;
                     case CONNECTION_ALIVE:
                         std::cout<<"CONNECTION_ALIVE\n";

@@ -10,6 +10,7 @@
 #ifndef missile_hpp
 #define missile_hpp
 
+#define PI 3.14159265
 
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
@@ -19,16 +20,18 @@
 
 class Missile{
 public:
-    Missile(Player& player, sf::Texture& texture );
+    Missile(Player* player, sf::Texture& texture );
     ~Missile();
     void update(float deltaTime);
     void draw(sf::RenderWindow & window);
     sf::CircleShape body;
     
 private:
-    sf::Vector2f velocity;
-    
+    float velocityScalar;
     Player* originPlayer;
+    float orientation;
+    sf::Vector2f unitVector;
+    sf::Vector2f velocity;
     
 };
 

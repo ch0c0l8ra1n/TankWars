@@ -15,7 +15,8 @@
 #include <SFML/Graphics.hpp>
 #include <math.h>
 #include "message.hpp"
-#include "missileManager.hpp"
+#include "unistd.h"
+//#include "missileManager.hpp"
 
 class MissileManager;
 class Player;
@@ -33,12 +34,13 @@ public:
     float clamp(float var, float limit);
     void setPressedButtons(bool * buttons);
     void setPlayerRef(Player * p);
+    float getTurretOrientation();
     
-    
-
 private:
     MissileManager * missileManager;
     Player* player;
+    
+    long long lastMissileTime;
     
     sf::Texture texture;
     sf::RectangleShape body, turret;
@@ -61,10 +63,7 @@ private:
     float bodyOrientation;
     float turretOrientation;
     bool  pressedButtons[9];
-    
-    
-    
-    
-    
 };
+
+long long getMs();
 #endif /* tank_hpp */

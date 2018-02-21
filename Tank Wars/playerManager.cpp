@@ -20,8 +20,11 @@ bool PlayerManager::addPlayer(Player player){
             return false;
         }
     }
-    player.playerTank.setPlayerRef(&player);
+    //player.playerTank.setPlayerRef(&player);
     players.push_back(player);
+    Player* temp = getPlayerByHash(player.getHash());
+    temp->playerTank.setPlayerRef(temp);
+    
     return true;
 }
 
@@ -64,9 +67,22 @@ void PlayerManager::setPlayerButtons(uint64_t hash, bool *buttons){
     for (int i=0;i<players.size();i++){
         if (players[i].getHash() == hash){
             players[i].setPressedButtons(buttons);
-            std::cout<<"found Player\n";
             return;
         }
     }
     std::cout<<"Not found player\n";
 }
+
+Player* PlayerManager::getPlayerByHash(uint64_t hash){
+    for (int i=0;i<players.size();i++){
+        if (players[i].getHash() == hash ){
+            return &players[i];
+        }
+    }
+    return NULL;
+}
+
+
+
+
+

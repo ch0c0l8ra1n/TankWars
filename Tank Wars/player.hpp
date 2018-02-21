@@ -33,6 +33,7 @@ public:
     uint64_t getHash();
     Tank playerTank;
     void setPressedButtons(bool * buttons);
+    sf::Vector2f getPosition();
 };
 
 #endif /* player_hpp */
