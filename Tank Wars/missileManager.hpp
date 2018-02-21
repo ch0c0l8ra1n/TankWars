@@ -6,6 +6,8 @@
 //  Copyright © 2018 Rajat Parajuli. All rights reserved.
 //
 
+#pragma once
+
 #ifndef missileManager_hpp
 #define missileManager_hpp
 

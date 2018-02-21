@@ -6,6 +6,8 @@
 //  Copyright © 2018 Rajat Parajuli. All rights reserved.
 //
 
+#pragma once
+
 #ifndef playerManager_hpp
 #define playerManager_hpp
 
@@ -13,7 +15,7 @@
 #include "player.hpp"
 #include <SFML/Network.hpp>
 #include <SFML/Graphics.hpp>
-#include "missileManager.hpp"
+//#include "missileManager.hpp"
 
 class PlayerManager{
 private:
@@ -28,6 +30,7 @@ public:
     bool removePlayersByIP(sf::IpAddress ip);
     bool removePlayer(uint64_t hash);
     void drawPlayers(sf::RenderWindow& window);
+    void setPlayerButtons(uint64_t hash, bool * buttons);
     Player& getPlayer(int id);
     
     ~PlayerManager();

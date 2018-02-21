@@ -3,7 +3,7 @@
 
 #define PI 3.14159265
 
-Tank::Tank(sf::Texture* texture ){
+Tank::Tank(sf::Texture* texture, MissileManager* mManager ){
     
     linearAcc = 300.0f;
     angularAcc = 200.0f;
@@ -53,8 +53,14 @@ Tank::Tank(sf::Texture* texture ){
         pressedButtons[i]= false;
     }
     
-    //body.setRotation(270);
-    //turret.setRotation(270);
+    missileManager = mManager;
+    
+    int temp = random()%360;
+    
+    body.setRotation(temp);
+    turret.setRotation(temp);
+    bodyOrientation = temp;
+    turretOrientation = temp;
     
     
 }
@@ -80,10 +86,10 @@ sf::Vector2f Tank::getPosition(){
 }
 
 void Tank::update(float deltaTime){
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+    if (pressedButtons[W]){
         velocityScalar += linearAcc * deltaTime;
     }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+    else if (pressedButtons[S]){
         velocityScalar -= linearAcc * deltaTime;
     }
     else{
@@ -92,10 +98,10 @@ void Tank::update(float deltaTime){
     }
     velocityScalar = clamp(velocityScalar , maxLinearVelocity);
     
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+    if (pressedButtons[A]){
         angularVelocity -= angularAcc * deltaTime;
     }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+    else if (pressedButtons[D]){
         angularVelocity += angularAcc * deltaTime;
     }
     else{
@@ -104,12 +110,17 @@ void Tank::update(float deltaTime){
     }
     
     float delTurretTheta = 0;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+    if (pressedButtons[LEFT]){
         delTurretTheta -= turretVelocity * deltaTime;
     }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+    else if (pressedButtons[RIGHT]){
         delTurretTheta += turretVelocity * deltaTime;
     }
+    
+    if(pressedButtons[SPACE]){
+        //missileManager->
+    }
+
     turretOrientation += delTurretTheta;
     turretOrientation = fmod(turretOrientation,360);
     turretOrientation = (turretOrientation<0) ? 360-turretOrientation : turretOrientation;
@@ -159,6 +170,9 @@ void Tank::setPressedButtons(bool * buttons){
     }
 }
 
+void ::Tank::setPlayerRef(Player *p){
+    player = p;
+}
 
 
 

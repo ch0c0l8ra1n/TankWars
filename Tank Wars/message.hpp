@@ -6,6 +6,8 @@
 //  Copyright © 2018 Rajat Parajuli. All rights reserved.
 //
 
+#pragma once
+
 #ifndef message_hpp
 #define message_hpp
 
@@ -29,7 +31,7 @@ struct leaveMessage{
 struct buttonsPressed{
     MessageTypes messageType;
     uint64_t hash;
-    Button buttons[9];
+    bool buttons[9];
 };
 
 struct connectionAlive{

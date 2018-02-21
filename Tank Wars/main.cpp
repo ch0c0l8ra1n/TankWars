@@ -89,7 +89,7 @@ int main(int, char const**){
     MissileManager missileManager(window);
     PlayerManager playerManager(missileManager);
     tempIP = "127.0.0.1";
-    playerManager.addPlayer( Player(0,tempIP.toString(), 43250, tankTextures[2], window ) );
+    //playerManager.addPlayer( Player(0,tempIP.toString(), 43250, tankTextures[2], window ) );
     missileManager.addMissile(playerManager.getPlayer(0));
     missileManager.missiles[0].body.setTexture(&bTex);
     
@@ -110,7 +110,6 @@ int main(int, char const**){
                 MessageTypes * msg;
                 msg = (MessageTypes *) receivingBuffer;
                 
-                buttonsPressed* bp;
 
                 
                 switch (*msg) {
@@ -118,7 +117,7 @@ int main(int, char const**){
                         std::cout<<"JOIN\n";
                         joinMessage* jm;
                         jm = (joinMessage*) receivingBuffer;
-                        playerManager.addPlayer( Player(jm->hash, tempIP, tempPort, tankTextures[jm->tankTextureId] , window) );
+                        playerManager.addPlayer( Player(jm->hash, tempIP, tempPort, tankTextures[jm->tankTextureId] , window, &missileManager) );
                         break;
                     case LEAVE:
                         std::cout<<"LEAVE\n";
@@ -130,7 +129,12 @@ int main(int, char const**){
                         std::cout<<"BUTTON_PRESS\n";
                         buttonsPressed* bp;
                         bp = (buttonsPressed*) receivingBuffer;
-                        
+                        playerManager.setPlayerButtons(bp->hash, bp->buttons);
+                        for(int i=0;i<9;i++){
+                            std::cout<<bp->buttons[i]<<"\t";
+                        }
+                        std::cout<<"\n";
+                        break;
                     case CONNECTION_ALIVE:
                         std::cout<<"CONNECTION_ALIVE\n";
                         break;

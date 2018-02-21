@@ -20,6 +20,7 @@ bool PlayerManager::addPlayer(Player player){
             return false;
         }
     }
+    player.playerTank.setPlayerRef(&player);
     players.push_back(player);
     return true;
 }
@@ -34,9 +35,6 @@ bool PlayerManager::removePlayersByIP(sf::IpAddress ip){
     return false;
 }
 void PlayerManager::updatePlayers(float deltaTime){
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-        missileManager->addMissile(players[0]);
-    }
     for(int i=0;i<players.size();i++){
         players[i].playerTank.update(deltaTime);
     }
@@ -60,4 +58,15 @@ bool PlayerManager::removePlayer(uint64_t hash){
         }
     }
     return false;
+}
+
+void PlayerManager::setPlayerButtons(uint64_t hash, bool *buttons){
+    for (int i=0;i<players.size();i++){
+        if (players[i].getHash() == hash){
+            players[i].setPressedButtons(buttons);
+            std::cout<<"found Player\n";
+            return;
+        }
+    }
+    std::cout<<"Not found player\n";
 }

@@ -5,6 +5,7 @@
 //  Created by Rajat Parajuli on 1/28/18.
 //  Copyright © 2018 Rajat Parajuli. All rights reserved.
 //
+#pragma once
 
 #ifndef missile_hpp
 #define missile_hpp

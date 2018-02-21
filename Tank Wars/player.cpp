@@ -8,7 +8,7 @@
 
 #include "player.hpp"
 
-Player::Player(uint64_t hash,sf::IpAddress IP , unsigned short port, sf::Texture& texture, sf::RenderWindow& win):playerTank(&texture){
+Player::Player(uint64_t hash,sf::IpAddress IP , unsigned short port, sf::Texture& texture, sf::RenderWindow& win, MissileManager * mManager):playerTank(&texture, mManager){
     playerIP = IP;
     playerPort = port;
     this->hash = hash;
@@ -28,3 +28,9 @@ sf::IpAddress Player::getIP(){
 uint64_t Player::getHash(){
     return hash;
 }
+
+void Player::setPressedButtons(bool *buttons){
+    playerTank.setPressedButtons(buttons);
+}
+
+

@@ -6,6 +6,8 @@
 //  Copyright © 2018 Rajat Parajuli. All rights reserved.
 //
 
+#pragma once
+
 #ifndef player_hpp
 #define player_hpp
 
@@ -23,13 +25,14 @@ private:
     uint64_t hash;
     
 public:
-    Player(uint64_t hash, sf::IpAddress IP , unsigned short port , sf::Texture& texture , sf::RenderWindow& win);
+    Player(uint64_t hash, sf::IpAddress IP , unsigned short port , sf::Texture& texture , sf::RenderWindow& win,MissileManager * mManager);
     ~Player();
     void destroyTank();
     void draw();
     sf::IpAddress getIP();
     uint64_t getHash();
     Tank playerTank;
+    void setPressedButtons(bool * buttons);
 };
 
 #endif /* player_hpp */
