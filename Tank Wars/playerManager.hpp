@@ -33,6 +33,7 @@ public:
     void setPlayerButtons(uint64_t hash, bool * buttons);
     Player* getPlayerByHash(uint64_t hash);
     Player& getPlayer(int id);
+    int checkCollisions();
     
     ~PlayerManager();
 };

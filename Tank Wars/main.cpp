@@ -42,14 +42,14 @@ int main(int, char const**){
     
     
     //Initalize the window
-    sf::RenderWindow window( sf::VideoMode( 2160 , 1440 ) , "Tank Wars" );
+    sf::RenderWindow window( sf::VideoMode( 1440 , 960 ) , "Tank Wars" );
     window.setVerticalSyncEnabled(true);
-    window.setFramerateLimit(60);
+    //window.setFramerateLimit(60);
     
     //Initialize the view
     sf::View view( sf::Vector2f(1440,1440) , sf::Vector2f(1440,1440) );
     view.setCenter(512, 512);
-    view.setSize(2160, 2160);
+    view.setSize(1440, 1440);
     
     //Load the texture
     sf::Texture tankTexture;
@@ -93,9 +93,14 @@ int main(int, char const**){
     //missileManager.addMissile(playerManager.getPlayer(0));
     //missileManager.missiles[0].body.setTexture(&bTex);
     
+    long long fpsCounter= 0;
+    
     while(window.isOpen()){
         
         deltaTime = clock.restart().asSeconds();
+        if (fpsCounter++%60 == 0){
+            window.setTitle("FPS: "+std::to_string(int(1/deltaTime)));
+        }
         
         //accpets at maximum 64 udp messages.
         for(int i=0;i<64;i++){
@@ -141,6 +146,7 @@ int main(int, char const**){
                 clearBuffer(receivingBuffer, received);
             }
         }
+        
         
         playerManager.updatePlayers(deltaTime);
         playerManager.drawPlayers(window);

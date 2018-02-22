@@ -35,12 +35,21 @@ public:
     void setPressedButtons(bool * buttons);
     void setPlayerRef(Player * p);
     float getTurretOrientation();
+    sf::FloatRect getFloatRect();
+    float getVelocityScalar();
+    float getOrientation();
+    void move(sf::Vector2f movement);
+    void setExternalVelocity(float scalar, float direction);
+    void revertMovement();
+    float getLastDTime();
+    sf::Vector2f getVelocityVector();
     
 private:
     MissileManager * missileManager;
     Player* player;
     
     long long lastMissileTime;
+    
     
     sf::Texture texture;
     sf::RectangleShape body, turret;
@@ -55,6 +64,15 @@ private:
     float maxLinearVelocity;
     float turretVelocity;
     float velocityScalar;
+    
+    sf::Vector2f lastMovement; // for collision, to revert it
+    
+    float externalVelocityScalar;
+    float externalVelocityDirection;
+    
+    sf::Vector2f resultantVelocityVector;
+    
+    float lastDTime;
     
     
     float angularVelocity;
