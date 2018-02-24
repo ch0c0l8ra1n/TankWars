@@ -20,13 +20,13 @@
 
 class PlayerManager{
 private:
-    std::vector<Player> players;
     sf::RenderWindow* window;
     MissileManager* missileManager;
     b2World * world;
     
 public:
     PlayerManager(MissileManager& misM);
+    std::vector<Player> players;
     void setWorld(b2World* worl);
     void updatePlayers(float deltaTime);
     bool addPlayer(Player player);
@@ -36,8 +36,6 @@ public:
     void setPlayerButtons(uint64_t hash, bool * buttons);
     Player* getPlayerByHash(uint64_t hash);
     Player& getPlayer(int id);
-    int checkCollisions();
-    
     ~PlayerManager();
 };
 

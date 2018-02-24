@@ -49,15 +49,23 @@ public:
     b2Body * cBody;
     b2PolygonShape shape;
     b2FixtureDef fixtureDef;
+    void damage();
+    sf::RectangleShape healthBar;
+    sf::RectangleShape healthBarLevel;
+    void die();
+    bool isAlive();
     
     
 private:
     MissileManager * missileManager;
     Player* player;
     
+    bool dead;
+    long long deathTime;
+    
     long long lastMissileTime;
     
-    
+    int health;
     sf::Texture texture;
     sf::RectangleShape body, turret;
     sf::IntRect bodyRect, turretRect;

@@ -34,6 +34,7 @@ public:
     Tank playerTank;
     void setPressedButtons(bool * buttons);
     sf::Vector2f getPosition();
+    bool isAlive();
 };
 
 #endif /* player_hpp */

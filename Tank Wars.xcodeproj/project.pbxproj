@@ -26,6 +26,7 @@
 		886B61FA201A4B25009948F8 /* tank.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 886B61F8201A4B25009948F8 /* tank.cpp */; };
 		88DC7363201DA99100B98450 /* missile.png in Resources */ = {isa = PBXBuildFile; fileRef = 88DC7362201DA99100B98450 /* missile.png */; };
 		88DC7366201DAAC500B98450 /* missile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88DC7364201DAAC500B98450 /* missile.cpp */; };
+		88EBA5BB2041417000530A7E /* scoreBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88EBA5B92041417000530A7E /* scoreBoard.cpp */; };
 		88F867F02030278600C9E122 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88F867EE2030278600C9E122 /* player.cpp */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,8 @@
 		88DC7362201DA99100B98450 /* missile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = missile.png; path = ../../../../Downloads/missile.png; sourceTree = "<group>"; };
 		88DC7364201DAAC500B98450 /* missile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = missile.cpp; sourceTree = "<group>"; };
 		88DC7365201DAAC500B98450 /* missile.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = missile.hpp; sourceTree = "<group>"; };
+		88EBA5B92041417000530A7E /* scoreBoard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = scoreBoard.cpp; sourceTree = "<group>"; };
+		88EBA5BA2041417000530A7E /* scoreBoard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = scoreBoard.hpp; sourceTree = "<group>"; };
 		88F867EE2030278600C9E122 /* player.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = "<group>"; };
 		88F867EF2030278600C9E122 /* player.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = player.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +110,8 @@
 				884B0F192030A82F009A484E /* playerManager.hpp */,
 				884B0F1B2030AC1C009A484E /* missileManager.cpp */,
 				884B0F1C2030AC1C009A484E /* missileManager.hpp */,
+				88EBA5B92041417000530A7E /* scoreBoard.cpp */,
+				88EBA5BA2041417000530A7E /* scoreBoard.hpp */,
 				8839FED720278295008A9194 /* message.cpp */,
 				8839FED820278295008A9194 /* message.hpp */,
 				886B61D5201A459C009948F8 /* ResourcePath.mm */,
@@ -244,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				886B61D9201A459C009948F8 /* main.cpp in Sources */,
+				88EBA5BB2041417000530A7E /* scoreBoard.cpp in Sources */,
 				886B61D6201A459C009948F8 /* ResourcePath.mm in Sources */,
 				88F867F02030278600C9E122 /* player.cpp in Sources */,
 				88DC7366201DAAC500B98450 /* missile.cpp in Sources */,

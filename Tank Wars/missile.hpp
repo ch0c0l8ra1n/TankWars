@@ -25,6 +25,9 @@ public:
     void update(float deltaTime);
     void draw(sf::RenderWindow & window);
     sf::CircleShape body;
+    bool isExpired(long long dTime);
+    sf::Vector2f getPosition();
+    Player* getPlayer();
     
 private:
     float velocityScalar;
@@ -32,6 +35,7 @@ private:
     float orientation;
     sf::Vector2f unitVector;
     sf::Vector2f velocity;
+    long long creationTime;
     
 };
 

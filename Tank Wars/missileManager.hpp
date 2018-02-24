@@ -15,16 +15,21 @@
 #include "missile.hpp"
 #include "player.hpp"
 
+class PlayerManager;
+
 class MissileManager{
 private:
     sf::RenderWindow* window;
     sf::Texture texture;
+    PlayerManager* playerManager;
 public:
     std::vector<Missile> missiles;
     MissileManager(sf::RenderWindow& win);
     ~MissileManager(){}
     void addMissile(Player* player);
     void updateMissiles(float deltaTime);
+    void setPlayerManager(PlayerManager* manager);
+    int checkCollisions();
 };
 
 #endif /* missileManager_hpp */

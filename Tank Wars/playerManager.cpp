@@ -55,7 +55,6 @@ bool PlayerManager::removePlayersByIP(sf::IpAddress ip){
     return false;
 }
 void PlayerManager::updatePlayers(float deltaTime){
-    std::cout<<checkCollisions()<<" Collisions\n"<<std::flush;
     for(int i=0;i<players.size();i++){
         players[i].playerTank.update(deltaTime);
     }
@@ -63,7 +62,9 @@ void PlayerManager::updatePlayers(float deltaTime){
 
 void PlayerManager::drawPlayers(sf::RenderWindow& window){
     for(int i=0;i<players.size();i++){
-        players[i].playerTank.draw(window);
+        if (players[i].isAlive()){
+            players[i].playerTank.draw(window);
+        }
     }
 }
 
@@ -101,26 +102,6 @@ Player* PlayerManager::getPlayerByHash(uint64_t hash){
 }
 
 
-int PlayerManager::checkCollisions(){
-    int counter = 0;
-    int pSize = players.size();
-    for (int i=0;i<pSize-1;i++){
-        std::cout<<i<<"\t"<<pSize-1<<"\n";
-        for (int j=i+1;j<pSize;j++){
-            std::cout<<dot(players[i].playerTank.getPosition() - players[j].playerTank.getPosition(),
-                           players[j].playerTank.getVelocityVector() - players[i].playerTank.getVelocityVector())<<"\n";
-            if( players[i].playerTank.getFloatRect().intersects
-                            (players[j].playerTank.getFloatRect()) &&
-                                        dot(players[i].playerTank.getPosition() - players[j].playerTank.getPosition(),
-                                      players[j].playerTank.getVelocityVector() - players[i].playerTank.getVelocityVector()) > 0){
-                //players[i].playerTank.revertMovement();
-                //players[j].playerTank.revertMovement();
-            }
-            
-        }
-    }
-    return counter;
-}
 
 
 void PlayerManager::setWorld(b2World * worl){

@@ -14,11 +14,9 @@ long long getMs(){
 }
 
 Tank::Tank(sf::Texture* texture, MissileManager* mManager ){
+    dead = false;
     lastMissileTime = getMs() - 1000;
-    
-    body.setOutlineColor(sf::Color(255,0,0));
-    body.setOutlineThickness(1.0f);
-    
+    health  = 1000;
     linearAcc = 300.0f;
     angularAcc = 200.0f;
     
@@ -73,11 +71,16 @@ Tank::Tank(sf::Texture* texture, MissileManager* mManager ){
     missileManager = mManager;
     
     int temp = random()%360;
-    //body.setRotation(temp);
-    //turret.setRotation(temp);
-    //bodyOrientation = temp;
-    //turretOrientation = temp;
     
+    healthBar.setSize(sf::Vector2f(100.0f,20.0f));
+    healthBarLevel.setSize(healthBar.getSize());
+    
+    healthBarLevel.setFillColor(sf::Color(100,250,75));
+    healthBar.setOutlineColor(sf::Color(250,75,25));
+    healthBar.setOutlineThickness(4.0f);
+    
+    healthBar.setOrigin(healthBar.getSize()/2.0f);
+    healthBarLevel.setOrigin(healthBarLevel.getSize()/2.0f);
     
 }
 
@@ -94,6 +97,8 @@ void Tank::setOrigin(sf::Vector2f origin){
 void Tank::draw(sf::RenderWindow &window){
     window.draw(body);
     window.draw(turret);
+    window.draw(healthBar);
+    window.draw(healthBarLevel);
 }
 
 
@@ -102,20 +107,40 @@ sf::Vector2f Tank::getPosition(){
 }
 
 void Tank::update(float deltaTime){
-    float angle = cBody->GetAngle();
-    std::cout<<angle<<"\n"<<std::flush;
-    b2Vec2 unitVector;
-    unitVector.x = -sin(angle*PI/180);
-    unitVector.y = cos(angle*PI/180);
+    if (!isAlive()){
+        if (getMs() - deathTime >= 1000){
+            dead = false;
+            health = 1000;
+            healthBarLevel.setSize(healthBar.getSize());
+            cBody->SetTransform(b2Vec2(512,512) , 0.0f);
+        }
+        return;
+    }
+    
     if (pressedButtons[W]){
-        float force = 10000.0f;
+        float angle = cBody->GetAngle();
+        b2Vec2 unitVector;
+        unitVector.x = -sin(angle*PI/180);
+        unitVector.y = cos(angle*PI/180);
+        float force = cBody->GetMass() * 500.0f;
         unitVector.x *= force;
         unitVector.y *= force;
+        cBody->SetLinearDamping(0.3f);
         cBody->ApplyForceToCenter(unitVector, true);
     }
     else if (pressedButtons[S]){
-        b2Vec2 force (0.0f , cBody->GetMass() * -1000.0f );
-        cBody->ApplyForceToCenter(force, true);
+        float angle = cBody->GetAngle();
+        b2Vec2 unitVector;
+        unitVector.x = -sin(angle*PI/180);
+        unitVector.y = cos(angle*PI/180);
+        float force = cBody->GetMass() * -500.0f;
+        unitVector.x *= force;
+        unitVector.y *= force;
+        cBody->SetLinearDamping(0.3f);
+        cBody->ApplyForceToCenter(unitVector, true);
+    }
+    else{
+        cBody->SetLinearDamping(0.5f);
     }
     
     if (pressedButtons[A]){
@@ -136,7 +161,6 @@ void Tank::update(float deltaTime){
     }
     
     if(pressedButtons[SPACE]){
-        std::cout<<getMs()<<"\t"<<lastMissileTime<<"\n";
         if (getMs() - lastMissileTime> 200){
             missileManager->addMissile(player);
             lastMissileTime = getMs();
@@ -146,11 +170,16 @@ void Tank::update(float deltaTime){
     turretOrientation = turret.getRotation();
     
     sf::Vector2f pos(cBody->GetPosition().x, cBody->GetPosition().y);
-    angle = cBody->GetAngle();
+    float angle = cBody->GetAngle();
     body.setPosition(pos);
     turret.setPosition(pos);
     body.setRotation(angle);
     
+    sf::Vector2f size ( ((float)health/1000) * healthBar.getSize().x , healthBar.getSize().y );
+    healthBarLevel.setSize(size);
+    
+    healthBar.setPosition(pos.x , pos.y+100.0f);
+    healthBarLevel.setPosition(healthBar.getPosition());
     
     
 }
@@ -217,3 +246,19 @@ sf::Vector2f Tank::getSize(){
     return body.getSize();
 }
 
+void Tank::damage(){
+    health -= 100;
+    if (health == 0){
+        die();
+        return;
+    }
+}
+
+void Tank::die(){
+    deathTime = getMs();
+    dead = true;
+}
+
+bool Tank::isAlive(){
+    return !dead;
+}

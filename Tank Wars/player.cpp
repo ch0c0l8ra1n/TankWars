@@ -33,4 +33,8 @@ void Player::setPressedButtons(bool *buttons){
     playerTank.setPressedButtons(buttons);
 }
 
+bool Player::isAlive(){
+    return playerTank.isAlive();
+}
+
 

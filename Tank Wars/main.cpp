@@ -7,7 +7,6 @@
 
 #include "missile.hpp"
 #include "message.hpp"
-#include <iostream>
 #include <string>
 #include "missileManager.hpp"
 #include "playerManager.hpp"
@@ -94,6 +93,7 @@ int main(int, char const**){
     MissileManager missileManager(window);
     PlayerManager playerManager(missileManager);
     playerManager.setWorld(&world);
+    missileManager.setPlayerManager(&playerManager);
     tempIP = "127.0.0.1";
     int32 velocityIterations = 8;
     int32 positionIterations = 3;
@@ -102,15 +102,13 @@ int main(int, char const**){
     //missileManager.missiles[0].body.setTexture(&bTex);
     
     long long fpsCounter= 0;
+    std::cout<<"hello\n";
     
     while(window.isOpen()){
-        std::cout<<"What is your name?\n"<<std::flush;
-        char * name;
-        std::cin>>name;
         
         deltaTime = clock.restart().asSeconds();
         if (fpsCounter++%60 == 0){
-            window.setTitle("FPS: "+std::to_string(int(1/deltaTime)));
+            //window.setTitle("FPS: "+std::to_string(int(1/deltaTime)));
         }
         world.Step(deltaTime, velocityIterations, positionIterations);
         
@@ -126,9 +124,6 @@ int main(int, char const**){
             else{
                 MessageTypes * msg;
                 msg = (MessageTypes *) receivingBuffer;
-                
-
-                
                 switch (*msg) {
                     case JOIN:
                         std::cout<<"JOIN\n";
