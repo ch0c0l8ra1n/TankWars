@@ -73,11 +73,10 @@ Tank::Tank(sf::Texture* texture, MissileManager* mManager ){
     missileManager = mManager;
     
     int temp = random()%360;
-    
-    body.setRotation(temp);
-    turret.setRotation(temp);
-    bodyOrientation = temp;
-    turretOrientation = temp;
+    //body.setRotation(temp);
+    //turret.setRotation(temp);
+    //bodyOrientation = temp;
+    //turretOrientation = temp;
     
     
 }
@@ -103,28 +102,29 @@ sf::Vector2f Tank::getPosition(){
 }
 
 void Tank::update(float deltaTime){
-    lastDTime = deltaTime;
+    float angle = cBody->GetAngle();
+    std::cout<<angle<<"\n"<<std::flush;
+    b2Vec2 unitVector;
+    unitVector.x = -sin(angle*PI/180);
+    unitVector.y = cos(angle*PI/180);
     if (pressedButtons[W]){
-        velocityScalar += linearAcc * deltaTime;
+        float force = 10000.0f;
+        unitVector.x *= force;
+        unitVector.y *= force;
+        cBody->ApplyForceToCenter(unitVector, true);
     }
     else if (pressedButtons[S]){
-        velocityScalar -= linearAcc * deltaTime;
+        b2Vec2 force (0.0f , cBody->GetMass() * -1000.0f );
+        cBody->ApplyForceToCenter(force, true);
     }
-    else{
-        float delRetardation = linearAcc * deltaTime;
-        velocityScalar -= (delRetardation>fabs(velocityScalar)) ? velocityScalar : sign(velocityScalar)*delRetardation;
-    }
-    velocityScalar = clamp(velocityScalar , maxLinearVelocity);
     
     if (pressedButtons[A]){
-        angularVelocity -= angularAcc * deltaTime;
+        float torque = cBody->GetMass() * -10000.0f * body.getSize().x / 2;
+        cBody->ApplyTorque(torque, true);
     }
     else if (pressedButtons[D]){
-        angularVelocity += angularAcc * deltaTime;
-    }
-    else{
-        float delRetardation = angularAcc * deltaTime;
-        angularVelocity -= (delRetardation>fabs(angularVelocity)) ? angularVelocity : sign(angularVelocity)*delRetardation;
+        float torque = cBody->GetMass() * 10000.0f * body.getSize().x / 2;
+        cBody->ApplyTorque(torque, true);
     }
     
     float delTurretTheta = 0;
@@ -142,45 +142,14 @@ void Tank::update(float deltaTime){
             lastMissileTime = getMs();
         }
     }
-
-    
     turret.rotate(delTurretTheta);
     turretOrientation = turret.getRotation();
-
     
-    angularVelocity = clamp(angularVelocity,maxAngularVelocity);
-
-    
-    float deltaTheta = angularVelocity * deltaTime;
-    body.rotate(deltaTheta);
-    bodyOrientation = body.getRotation();
-    
-    
-    sf::Vector2f unitVector;
-    unitVector.x = -sin(bodyOrientation*PI/180);
-    unitVector.y = cos(bodyOrientation*PI/180);
-    
-    velocityVector.x = velocityScalar * unitVector.x;
-    velocityVector.y = velocityScalar * unitVector.y;
-    
-    unitVector.x = -sin(externalVelocityDirection*PI/180);
-    unitVector.y =  cos(externalVelocityDirection*PI/180);
-    
-    velocityVector.x += unitVector.x * externalVelocityScalar;
-    velocityVector.y += unitVector.y * externalVelocityScalar;
-    
-    float delRetardation = linearAcc * deltaTime;
-    externalVelocityScalar -= ((delRetardation>fabs(externalVelocityScalar)) ?
-                                externalVelocityScalar : sign(externalVelocityScalar)*delRetardation);
-    
-    sf::Vector2f movement;
-    movement.x = velocityVector.x * deltaTime;
-    movement.y = velocityVector.y * deltaTime;
-    
-    
-    
-    move(movement);
-    lastMovement = movement;
+    sf::Vector2f pos(cBody->GetPosition().x, cBody->GetPosition().y);
+    angle = cBody->GetAngle();
+    body.setPosition(pos);
+    turret.setPosition(pos);
+    body.setRotation(angle);
     
     
     
@@ -242,5 +211,9 @@ float Tank::getLastDTime(){
 
 sf::Vector2f Tank::getVelocityVector(){
     return velocityVector;
+}
+
+sf::Vector2f Tank::getSize(){
+    return body.getSize();
 }
 

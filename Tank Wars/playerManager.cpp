@@ -26,10 +26,21 @@ bool PlayerManager::addPlayer(Player player){
             return false;
         }
     }
-    //player.playerTank.setPlayerRef(&player);
     players.push_back(player);
     Player* temp = getPlayerByHash(player.getHash());
     temp->playerTank.setPlayerRef(temp);
+    temp->playerTank.bodyDef.type = b2_dynamicBody;
+    temp->playerTank.bodyDef.position.Set(temp->playerTank.getPosition().x, temp->playerTank.getPosition().y);
+    temp->playerTank.cBody = world->CreateBody(&(temp->playerTank.bodyDef));
+    temp->playerTank.shape.SetAsBox(temp->playerTank.getSize().x / 2, temp->playerTank.getSize().y/2);
+    temp->playerTank.fixtureDef.shape = &temp->playerTank.shape;
+    temp->playerTank.fixtureDef.friction = 0.0f;
+    temp->playerTank.fixtureDef.density = 1.0f;
+    temp->playerTank.fixtureDef.restitution = 0.1f;
+    temp->playerTank.cBody->CreateFixture(&(temp->playerTank.fixtureDef));
+    temp->playerTank.cBody->SetLinearDamping(1.0f);
+    temp->playerTank.cBody->SetAngularDamping(1.0f);
+    //temp->playerTank.cBody->SetAngularVelocity(1000.0f);
     
     return true;
 }
@@ -102,8 +113,8 @@ int PlayerManager::checkCollisions(){
                             (players[j].playerTank.getFloatRect()) &&
                                         dot(players[i].playerTank.getPosition() - players[j].playerTank.getPosition(),
                                       players[j].playerTank.getVelocityVector() - players[i].playerTank.getVelocityVector()) > 0){
-                players[i].playerTank.revertMovement();
-                players[j].playerTank.revertMovement();
+                //players[i].playerTank.revertMovement();
+                //players[j].playerTank.revertMovement();
             }
             
         }
@@ -112,5 +123,7 @@ int PlayerManager::checkCollisions(){
 }
 
 
-
+void PlayerManager::setWorld(b2World * worl){
+    world = worl;
+}
 

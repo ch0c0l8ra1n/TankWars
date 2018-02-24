@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		880FB6D920405A4600B9BF6B /* libBox2D.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 880FB6D820405A4600B9BF6B /* libBox2D.a */; };
 		8839FED920278295008A9194 /* message.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8839FED720278295008A9194 /* message.cpp */; };
 		884B0F1A2030A82F009A484E /* playerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 884B0F182030A82F009A484E /* playerManager.cpp */; };
 		884B0F1D2030AC1C009A484E /* missileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 884B0F1B2030AC1C009A484E /* missileManager.cpp */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		880FB6D820405A4600B9BF6B /* libBox2D.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBox2D.a; path = ExternalLibraries/Box2D/lib/libBox2D.a; sourceTree = "<group>"; };
 		8839FED720278295008A9194 /* message.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = message.cpp; sourceTree = "<group>"; };
 		8839FED820278295008A9194 /* message.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = message.hpp; sourceTree = "<group>"; };
 		884B0F182030A82F009A484E /* playerManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = playerManager.cpp; sourceTree = "<group>"; };
@@ -64,17 +66,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				880FB6D920405A4600B9BF6B /* libBox2D.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		880FB6D720405A4500B9BF6B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				880FB6D820405A4600B9BF6B /* libBox2D.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		886B61C6201A459C009948F8 = {
 			isa = PBXGroup;
 			children = (
 				886B61D2201A459C009948F8 /* Tank Wars */,
 				886B61D1201A459C009948F8 /* Products */,
+				880FB6D720405A4500B9BF6B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -339,6 +351,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Tank Wars/Tank Wars-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ExternalLibraries/Box2D/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -349,6 +365,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Tank Wars/Tank Wars-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ExternalLibraries/Box2D/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

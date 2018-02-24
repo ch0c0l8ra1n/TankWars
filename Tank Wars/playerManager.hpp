@@ -15,6 +15,7 @@
 #include "player.hpp"
 #include <SFML/Network.hpp>
 #include <SFML/Graphics.hpp>
+#include <Box2D/Box2D.h>
 //#include "missileManager.hpp"
 
 class PlayerManager{
@@ -22,9 +23,11 @@ private:
     std::vector<Player> players;
     sf::RenderWindow* window;
     MissileManager* missileManager;
+    b2World * world;
     
 public:
     PlayerManager(MissileManager& misM);
+    void setWorld(b2World* worl);
     void updatePlayers(float deltaTime);
     bool addPlayer(Player player);
     bool removePlayersByIP(sf::IpAddress ip);

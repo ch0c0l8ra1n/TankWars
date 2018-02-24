@@ -1,6 +1,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
+#include <Box2D/Box2D.h>
 
 #include "ResourcePath.hpp"
 
@@ -19,8 +20,12 @@ void clearBuffer(char * start,std::size_t size){
 
 
 int main(int, char const**){
+    
+    b2Vec2 gravity(0.0f,0.0f);
+    b2World world(gravity);
+    
     //Initialize client and server sockets
-    sf::UdpSocket clientSocket,serverSocket;
+    sf::UdpSocket clientSowcket,serverSocket;
     serverSocket.setBlocking(false);
     uint16_t serverPort=4325;
     
@@ -88,7 +93,10 @@ int main(int, char const**){
     std::vector <Missile> missiles;
     MissileManager missileManager(window);
     PlayerManager playerManager(missileManager);
+    playerManager.setWorld(&world);
     tempIP = "127.0.0.1";
+    int32 velocityIterations = 8;
+    int32 positionIterations = 3;
     //playerManager.addPlayer( Player(0,tempIP.toString(), 43250, tankTextures[2], window ) );
     //missileManager.addMissile(playerManager.getPlayer(0));
     //missileManager.missiles[0].body.setTexture(&bTex);
@@ -96,11 +104,15 @@ int main(int, char const**){
     long long fpsCounter= 0;
     
     while(window.isOpen()){
+        std::cout<<"What is your name?\n"<<std::flush;
+        char * name;
+        std::cin>>name;
         
         deltaTime = clock.restart().asSeconds();
         if (fpsCounter++%60 == 0){
             window.setTitle("FPS: "+std::to_string(int(1/deltaTime)));
         }
+        world.Step(deltaTime, velocityIterations, positionIterations);
         
         //accpets at maximum 64 udp messages.
         for(int i=0;i<64;i++){

@@ -16,6 +16,7 @@
 #include <math.h>
 #include "message.hpp"
 #include "unistd.h"
+#include <Box2D/Box2D.h>
 //#include "missileManager.hpp"
 
 class MissileManager;
@@ -42,7 +43,13 @@ public:
     void setExternalVelocity(float scalar, float direction);
     void revertMovement();
     float getLastDTime();
+    sf::Vector2f getSize();
     sf::Vector2f getVelocityVector();
+    b2BodyDef bodyDef;
+    b2Body * cBody;
+    b2PolygonShape shape;
+    b2FixtureDef fixtureDef;
+    
     
 private:
     MissileManager * missileManager;
