@@ -40,7 +40,8 @@ bool PlayerManager::addPlayer(Player player){
     temp->playerTank.cBody->CreateFixture(&(temp->playerTank.fixtureDef));
     temp->playerTank.cBody->SetLinearDamping(1.0f);
     temp->playerTank.cBody->SetAngularDamping(1.0f);
-    //temp->playerTank.cBody->SetAngularVelocity(1000.0f);
+    temp->playerTank.cBody->SetLinearVelocity(b2Vec2(random()%1000,random()%1000));
+    temp->playerTank.cBody->SetAngularVelocity(1000.0f);
     
     return true;
 }

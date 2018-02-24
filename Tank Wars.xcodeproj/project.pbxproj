@@ -27,6 +27,8 @@
 		88DC7363201DA99100B98450 /* missile.png in Resources */ = {isa = PBXBuildFile; fileRef = 88DC7362201DA99100B98450 /* missile.png */; };
 		88DC7366201DAAC500B98450 /* missile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88DC7364201DAAC500B98450 /* missile.cpp */; };
 		88EBA5BB2041417000530A7E /* scoreBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88EBA5B92041417000530A7E /* scoreBoard.cpp */; };
+		88EBA5BD20417C1100530A7E /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 88EBA5BC20417C1100530A7E /* bg.jpg */; };
+		88EBA5BF20417CE200530A7E /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 88EBA5BE20417CE200530A7E /* bg.png */; };
 		88F867F02030278600C9E122 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88F867EE2030278600C9E122 /* player.cpp */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +62,8 @@
 		88DC7365201DAAC500B98450 /* missile.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = missile.hpp; sourceTree = "<group>"; };
 		88EBA5B92041417000530A7E /* scoreBoard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = scoreBoard.cpp; sourceTree = "<group>"; };
 		88EBA5BA2041417000530A7E /* scoreBoard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = scoreBoard.hpp; sourceTree = "<group>"; };
+		88EBA5BC20417C1100530A7E /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = bg.jpg; path = ../../../../Downloads/bg.jpg; sourceTree = "<group>"; };
+		88EBA5BE20417CE200530A7E /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg.png; path = ../../../../Desktop/bg.png; sourceTree = "<group>"; };
 		88F867EE2030278600C9E122 /* player.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = "<group>"; };
 		88F867EF2030278600C9E122 /* player.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = player.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,6 +147,8 @@
 				886B61E9201A45D7009948F8 /* tank3.png */,
 				88DC7362201DA99100B98450 /* missile.png */,
 				886B61EA201A45D7009948F8 /* tank4.png */,
+				88EBA5BE20417CE200530A7E /* bg.png */,
+				88EBA5BC20417C1100530A7E /* bg.jpg */,
 				886B61EE201A45D7009948F8 /* tank5.png */,
 				886B61EC201A45D7009948F8 /* tank0.png */,
 				886B61E8201A45D6009948F8 /* T34_strip2.png */,
@@ -211,11 +217,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88EBA5BF20417CE200530A7E /* bg.png in Resources */,
 				886B61F6201A45D7009948F8 /* tank5.png in Resources */,
 				886B61F2201A45D7009948F8 /* tank4.png in Resources */,
 				886B61F1201A45D7009948F8 /* tank3.png in Resources */,
 				886B61E2201A459C009948F8 /* icon.png in Resources */,
 				886B61F0201A45D7009948F8 /* T34_strip2.png in Resources */,
+				88EBA5BD20417C1100530A7E /* bg.jpg in Resources */,
 				886B61F4201A45D7009948F8 /* tank0.png in Resources */,
 				886B61F3201A45D7009948F8 /* tank2.png in Resources */,
 				884B0F41203205C8009A484E /* fireball.png in Resources */,

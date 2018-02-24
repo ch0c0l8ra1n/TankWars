@@ -19,9 +19,51 @@ void clearBuffer(char * start,std::size_t size){
 
 
 int main(int, char const**){
+    sf::Sprite bg;
+    sf::Texture bgTex;
+    bgTex.loadFromFile(resourcePath() + "bg.png");
+    bgTex.setRepeated(true);
+    bg.setTexture(bgTex);
+    bg.setPosition(0.0f, 0.0f);
+    bg.setScale(2.0f, 2.0f);
+    
     
     b2Vec2 gravity(0.0f,0.0f);
     b2World world(gravity);
+    
+    b2BodyDef walls[4];
+    for(int i=0;i<4;i++){
+        walls[i].type = b2_staticBody;
+    }
+    walls[0].position.Set( 0.0f, 720.0f );
+    walls[2].position.Set( 2560.0f, 720.0f);
+    walls[1].position.Set( 1280.0f, 0.0f);
+    walls[3].position.Set( 1280.0f, 1440.0f);
+    
+    b2Body* wallBodies[4];
+    for(int i=0;i<4;i++){
+        wallBodies[i] = world.CreateBody(&(walls[i]));
+    }
+    
+    b2PolygonShape wallShapes[4];
+    wallShapes[0].SetAsBox(5.0f, 1440.0f);
+    wallShapes[2].SetAsBox(5.0f, 1440.0f);
+    
+    wallShapes[1].SetAsBox(1440.0f, 5.0f);
+    wallShapes[3].SetAsBox(1440.0f, 5.0f);
+    
+    b2FixtureDef wallFixtureDefs[4];
+    for(int i=0;i<4;i++){
+        wallFixtureDefs[i].shape = &(wallShapes[i]);
+        wallFixtureDefs[i].density = 1.0f;
+        wallFixtureDefs[i].friction = 1.0f;
+        wallFixtureDefs[i].restitution = 0.0f;
+    }
+    for(int i = 0;i<4;i++){
+        wallBodies[i]->CreateFixture(&(wallFixtureDefs[i]));
+    }
+    
+
     
     //Initialize client and server sockets
     sf::UdpSocket clientSowcket,serverSocket;
@@ -46,12 +88,12 @@ int main(int, char const**){
     
     
     //Initalize the window
-    sf::RenderWindow window( sf::VideoMode( 1440 , 960 ) , "Tank Wars" );
+    sf::RenderWindow window( sf::VideoMode( 2560 , 1440 ) , "Tank Wars" );
     window.setVerticalSyncEnabled(true);
     //window.setFramerateLimit(60);
     
     //Initialize the view
-    sf::View view( sf::Vector2f(1440,1440) , sf::Vector2f(1440,1440) );
+    sf::View view( sf::Vector2f(216,216) , sf::Vector2f(216 , 216) );
     view.setCenter(512, 512);
     view.setSize(1440, 1440);
     
@@ -105,7 +147,7 @@ int main(int, char const**){
     std::cout<<"hello\n";
     
     while(window.isOpen()){
-        
+        window.draw(bg);
         deltaTime = clock.restart().asSeconds();
         if (fpsCounter++%60 == 0){
             //window.setTitle("FPS: "+std::to_string(int(1/deltaTime)));
@@ -173,13 +215,11 @@ int main(int, char const**){
         
         
         
-        window.setView(view);
+        //window.setView(view);
         //window.draw(temp);
         ball.move(1.0f, 0.1f);
         window.draw(ball);
         window.display();
-        
-        
         window.clear( sf::Color( 155 , 129 , 80 ) );
     }
 

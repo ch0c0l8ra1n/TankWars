@@ -37,7 +37,7 @@ void Missile::draw(sf::RenderWindow& window){
 }
 
 bool Missile::isExpired(long long dTime){
-    return dTime>creationTime + 2000;
+    return dTime>creationTime + 4000;
 }
 
 sf::Vector2f Missile::getPosition(){

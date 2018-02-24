@@ -37,8 +37,8 @@ Tank::Tank(sf::Texture* texture, MissileManager* mManager ){
     bodyOrientation = 0.0f;
     turretOrientation = 0.0f;
     
-    body.setPosition( 512 , 512 );
-    turret.setPosition( 512 , 512 );
+    body.setPosition( random()%2400 , random()%1300 );
+    turret.setPosition( body.getPosition() );
     
     body.setSize(sf::Vector2f(100,150));
     turret.setSize(sf::Vector2f(100,150));
@@ -108,13 +108,17 @@ sf::Vector2f Tank::getPosition(){
 
 void Tank::update(float deltaTime){
     if (!isAlive()){
-        if (getMs() - deathTime >= 1000){
+        if(getMs() - deathTime < 1000){
+            return;
+        }
+        else{
             dead = false;
             health = 1000;
             healthBarLevel.setSize(healthBar.getSize());
-            cBody->SetTransform(b2Vec2(512,512) , 0.0f);
+            cBody->SetTransform(b2Vec2(random()%2400, random()%1300) , 0.0f);
+            cBody->SetLinearVelocity(b2Vec2(random()%1000,random()%1000));
+            cBody->SetAngularVelocity(1000.0f);
         }
-        return;
     }
     
     if (pressedButtons[W]){
@@ -247,7 +251,7 @@ sf::Vector2f Tank::getSize(){
 }
 
 void Tank::damage(){
-    health -= 100;
+    health -= 50;
     if (health == 0){
         die();
         return;
