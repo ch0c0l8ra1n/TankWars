@@ -10,6 +10,12 @@
 #define scoreBoard_hpp
 
 #include <stdio.h>
+#include "player.hpp"
+
+struct Score{
+    Player* player;
+    int kills;
+};
 
 class ScoreBoard{
 public:

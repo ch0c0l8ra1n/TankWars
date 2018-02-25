@@ -25,7 +25,7 @@ int main(int, char const**){
     bgTex.setRepeated(true);
     bg.setTexture(bgTex);
     bg.setPosition(0.0f, 0.0f);
-    bg.setScale(4.0f, 4.0f);
+    bg.setScale(3.0f, 2.0f);
     
     
     b2Vec2 gravity(0.0f,0.0f);

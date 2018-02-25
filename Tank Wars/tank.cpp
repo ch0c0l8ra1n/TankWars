@@ -183,6 +183,14 @@ void Tank::update(float deltaTime){
     
     if(pressedButtons[SPACE]){
         if (getMs() - lastMissileTime> 200){
+            float angle = turretOrientation;
+            b2Vec2 unitVector;
+            unitVector.x = -sin(angle*PI/180);
+            unitVector.y = cos(angle*PI/180);
+            float force = cBody->GetMass() * 500.0f;
+            unitVector.x *= -force;
+            unitVector.y *= -force;
+            cBody->ApplyForceToCenter(unitVector, true);
             missileManager->addMissile(player);
             lastMissileTime = getMs();
         }
