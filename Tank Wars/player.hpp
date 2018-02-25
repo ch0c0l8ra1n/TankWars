@@ -23,9 +23,10 @@ private:
     unsigned short playerPort;
     sf::RenderWindow* window;
     uint64_t hash;
+    char name[20];
     
 public:
-    Player(uint64_t hash, sf::IpAddress IP , unsigned short port , sf::Texture& texture , sf::RenderWindow& win,MissileManager * mManager);
+    Player(uint64_t hash, sf::IpAddress IP , unsigned short port , sf::Texture& texture , char * name , sf::RenderWindow& win,MissileManager * mManager);
     ~Player();
     void destroyTank();
     void draw();

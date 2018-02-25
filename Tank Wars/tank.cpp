@@ -166,6 +166,10 @@ void Tank::update(float deltaTime){
     
     if(pressedButtons[SPACE]){
         if (getMs() - lastMissileTime> 200){
+            std::cout<<"Missile launched\n";
+            std::cout<<player->playerTank.getPosition().x<<"\t"<<player->playerTank.getPosition().y<<"\n";
+            std::cout<<body.getPosition().x<<"\t"<<body.getPosition().y<<"\n";
+            std::cout<<&(player->playerTank)<<"\t"<<this<<"\n";
             missileManager->addMissile(player);
             lastMissileTime = getMs();
         }
@@ -265,4 +269,8 @@ void Tank::die(){
 
 bool Tank::isAlive(){
     return !dead;
+}
+
+Player* Tank::getPlayerRef(){
+    return player;
 }

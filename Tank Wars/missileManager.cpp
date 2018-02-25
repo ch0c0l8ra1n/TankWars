@@ -15,6 +15,7 @@ MissileManager::MissileManager(sf::RenderWindow& win){
 }
 
 void MissileManager::addMissile(Player* player){
+    std::cout<<player->playerTank.getPosition().x<<"\t"<<player->playerTank.getPosition().y<<"\n";
     Missile temp(player,texture);
     missiles.push_back( temp );
 }
@@ -56,7 +57,7 @@ int MissileManager::checkCollisions(){
             if (playerManager->players[j].playerTank.getFloatRect().contains(center) &&
                 playerManager->players[j].isAlive() &&
                 playerManager->players[j].getHash() != missiles[i].getPlayer()->getHash()){
-                std::cout<<"collision\n";
+                std::cout<<j<<"\t"<<"collision\n";
                 playerManager->players[j].playerTank.damage();
                 missiles.erase(missiles.begin() + i);
                 break;

@@ -54,6 +54,7 @@ public:
     sf::RectangleShape healthBarLevel;
     void die();
     bool isAlive();
+    Player* getPlayerRef();
     
     
 private:

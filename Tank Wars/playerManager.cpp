@@ -28,7 +28,7 @@ bool PlayerManager::addPlayer(Player player){
     }
     players.push_back(player);
     Player* temp = getPlayerByHash(player.getHash());
-    temp->playerTank.setPlayerRef(temp);
+    std::cout<<temp->playerTank.getPlayerRef()<<"\t"<<temp<<"\n";
     temp->playerTank.bodyDef.type = b2_dynamicBody;
     temp->playerTank.bodyDef.position.Set(temp->playerTank.getPosition().x, temp->playerTank.getPosition().y);
     temp->playerTank.cBody = world->CreateBody(&(temp->playerTank.bodyDef));
@@ -43,6 +43,8 @@ bool PlayerManager::addPlayer(Player player){
     temp->playerTank.cBody->SetLinearVelocity(b2Vec2(random()%1000,random()%1000));
     temp->playerTank.cBody->SetAngularVelocity(1000.0f);
     
+    updatePlayerRefs();
+    
     return true;
 }
 
@@ -50,9 +52,11 @@ bool PlayerManager::removePlayersByIP(sf::IpAddress ip){
     for (int i=0;i<players.size();i++){
         if (players[i].getIP() == ip){
             players.erase(players.begin() + i);
+            updatePlayerRefs();
             return true;
         }
     }
+    updatePlayerRefs();
     return false;
 }
 void PlayerManager::updatePlayers(float deltaTime){
@@ -77,9 +81,11 @@ bool PlayerManager::removePlayer(uint64_t hash){
     for (int i=0;i<players.size();i++){
         if (players[i].getHash() == hash){
             players.erase(players.begin() + i);
+            updatePlayerRefs();
             return true;
         }
     }
+    updatePlayerRefs();
     return false;
 }
 
@@ -96,16 +102,20 @@ void PlayerManager::setPlayerButtons(uint64_t hash, bool *buttons){
 Player* PlayerManager::getPlayerByHash(uint64_t hash){
     for (int i=0;i<players.size();i++){
         if (players[i].getHash() == hash ){
-            return &players[i];
+            return &(players[i]);
         }
     }
+    std::cout<<"Player not found\n";
     return NULL;
 }
 
-
-
-
 void PlayerManager::setWorld(b2World * worl){
     world = worl;
+}
+
+void PlayerManager::updatePlayerRefs(){
+    for(int i=0;i<players.size();i++){
+        players[i].playerTank.setPlayerRef(&players[i]);
+    }
 }
 

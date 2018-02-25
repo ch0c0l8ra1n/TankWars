@@ -168,25 +168,25 @@ int main(int, char const**){
                 msg = (MessageTypes *) receivingBuffer;
                 switch (*msg) {
                     case JOIN:
-                        std::cout<<"JOIN\n";
+                        //std::cout<<"JOIN\n";
                         joinMessage* jm;
                         jm = (joinMessage*) receivingBuffer;
-                        playerManager.addPlayer( Player(jm->hash, tempIP, tempPort, tankTextures[jm->tankTextureId] , window, &missileManager) );
+                        playerManager.addPlayer( Player(jm->hash, tempIP, tempPort, tankTextures[jm->tankTextureId] , jm->name, window, &missileManager) );
                         break;
                     case LEAVE:
-                        std::cout<<"LEAVE\n";
+                        //std::cout<<"LEAVE\n";
                         leaveMessage* lm;
                         lm = (leaveMessage*) receivingBuffer;
                         playerManager.removePlayer(lm->hash);
                         break;
                     case BUTTON_PRESS:
-                        std::cout<<"BUTTON_PRESS\n";
+                        //std::cout<<"BUTTON_PRESS\n";
                         buttonsPressed* bp;
                         bp = (buttonsPressed*) receivingBuffer;
                         playerManager.setPlayerButtons(bp->hash, bp->buttons);
                         break;
                     case CONNECTION_ALIVE:
-                        std::cout<<"CONNECTION_ALIVE\n";
+                        //std::cout<<"CONNECTION_ALIVE\n";
                         break;
                     default:
                         break;
