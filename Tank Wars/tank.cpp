@@ -4,6 +4,7 @@
 #include "missileManager.hpp"
 #include "player.hpp"
 #include <sys/time.h>
+#include <string.h>
 
 #define PI 3.14159265
 
@@ -13,7 +14,7 @@ long long getMs(){
     return tp.tv_sec * 1000 + tp.tv_usec / 1000;
 }
 
-Tank::Tank(sf::Texture* texture, MissileManager* mManager ){
+Tank::Tank(sf::Texture* texture, MissileManager* mManager, sf::Texture* baseTexture ){
     dead = false;
     lastMissileTime = getMs() - 1000;
     health  = 1000;
@@ -42,6 +43,17 @@ Tank::Tank(sf::Texture* texture, MissileManager* mManager ){
     
     body.setSize(sf::Vector2f(100,150));
     turret.setSize(sf::Vector2f(100,150));
+    
+    base.setTexture(baseTexture);
+    base.setSize( sf::Vector2f( 1.5f * std::max(body.getSize().x, body.getSize().y),
+                                1.5f * std::max(body.getSize().x, body.getSize().y)) );
+    base.setOrigin(base.getSize()/2.0f);
+    base.setFillColor(sf::Color(255,255,255,200));
+
+    
+    name.setCharacterSize(50.0f);
+    name.setFillColor(sf::Color(100,255,25));
+    
     
     body.setOrigin(body.getSize()/2.0f);
     turret.setOrigin(turret.getSize()/2.0f);
@@ -72,15 +84,17 @@ Tank::Tank(sf::Texture* texture, MissileManager* mManager ){
     
     int temp = random()%360;
     
-    healthBar.setSize(sf::Vector2f(100.0f,20.0f));
+    healthBar.setSize(sf::Vector2f(150.0f,10.0f));
     healthBarLevel.setSize(healthBar.getSize());
     
     healthBarLevel.setFillColor(sf::Color(100,250,75));
     healthBar.setOutlineColor(sf::Color(250,75,25));
-    healthBar.setOutlineThickness(4.0f);
+    healthBar.setOutlineThickness(2.0f);
+    healthBar.setFillColor(sf::Color(0,0,0,0));
     
     healthBar.setOrigin(healthBar.getSize()/2.0f);
     healthBarLevel.setOrigin(healthBarLevel.getSize()/2.0f);
+    
     
 }
 
@@ -95,10 +109,12 @@ void Tank::setOrigin(sf::Vector2f origin){
 }
 
 void Tank::draw(sf::RenderWindow &window){
+    window.draw(base);
     window.draw(body);
     window.draw(turret);
     window.draw(healthBar);
     window.draw(healthBarLevel);
+    window.draw(name);
 }
 
 
@@ -129,7 +145,6 @@ void Tank::update(float deltaTime){
         float force = cBody->GetMass() * 500.0f;
         unitVector.x *= force;
         unitVector.y *= force;
-        cBody->SetLinearDamping(0.3f);
         cBody->ApplyForceToCenter(unitVector, true);
     }
     else if (pressedButtons[S]){
@@ -140,11 +155,10 @@ void Tank::update(float deltaTime){
         float force = cBody->GetMass() * -500.0f;
         unitVector.x *= force;
         unitVector.y *= force;
-        cBody->SetLinearDamping(0.3f);
         cBody->ApplyForceToCenter(unitVector, true);
     }
     else{
-        cBody->SetLinearDamping(0.5f);
+        //TODO: Decelerate;
     }
     
     if (pressedButtons[A]){
@@ -154,6 +168,9 @@ void Tank::update(float deltaTime){
     else if (pressedButtons[D]){
         float torque = cBody->GetMass() * 10000.0f * body.getSize().x / 2;
         cBody->ApplyTorque(torque, true);
+    }
+    else{
+        //TODO: Decelerate;
     }
     
     float delTurretTheta = 0;
@@ -166,10 +183,6 @@ void Tank::update(float deltaTime){
     
     if(pressedButtons[SPACE]){
         if (getMs() - lastMissileTime> 200){
-            std::cout<<"Missile launched\n";
-            std::cout<<player->playerTank.getPosition().x<<"\t"<<player->playerTank.getPosition().y<<"\n";
-            std::cout<<body.getPosition().x<<"\t"<<body.getPosition().y<<"\n";
-            std::cout<<&(player->playerTank)<<"\t"<<this<<"\n";
             missileManager->addMissile(player);
             lastMissileTime = getMs();
         }
@@ -188,6 +201,10 @@ void Tank::update(float deltaTime){
     
     healthBar.setPosition(pos.x , pos.y+100.0f);
     healthBarLevel.setPosition(healthBar.getPosition());
+    
+    base.setPosition( body.getPosition());
+    base.setRotation(body.getRotation()- 180);
+    name.setPosition(healthBar.getPosition());
     
     
 }
@@ -273,4 +290,14 @@ bool Tank::isAlive(){
 
 Player* Tank::getPlayerRef(){
     return player;
+}
+
+void Tank::setFont(sf::Font* font){
+    this->font = font;
+    name.setFont(*font);
+}
+
+void Tank::setName(std::string name){
+    this->name.setString(name);
+    this->name.setOrigin(75.0f, 0.0f);
 }

@@ -13,6 +13,7 @@
 
 PlayerManager::PlayerManager(MissileManager& misM){
     missileManager = &misM;
+    font.loadFromFile(resourcePath() + "gameFont.ttf");
 }
 PlayerManager::~PlayerManager(){}
 
@@ -28,7 +29,6 @@ bool PlayerManager::addPlayer(Player player){
     }
     players.push_back(player);
     Player* temp = getPlayerByHash(player.getHash());
-    std::cout<<temp->playerTank.getPlayerRef()<<"\t"<<temp<<"\n";
     temp->playerTank.bodyDef.type = b2_dynamicBody;
     temp->playerTank.bodyDef.position.Set(temp->playerTank.getPosition().x, temp->playerTank.getPosition().y);
     temp->playerTank.cBody = world->CreateBody(&(temp->playerTank.bodyDef));
@@ -42,6 +42,7 @@ bool PlayerManager::addPlayer(Player player){
     temp->playerTank.cBody->SetAngularDamping(1.0f);
     temp->playerTank.cBody->SetLinearVelocity(b2Vec2(random()%1000,random()%1000));
     temp->playerTank.cBody->SetAngularVelocity(1000.0f);
+    temp->playerTank.setFont(&font);
     
     updatePlayerRefs();
     

@@ -16,13 +16,14 @@
 #include <SFML/Network.hpp>
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
-//#include "missileManager.hpp"
+#include "ResourcePath.hpp"
 
 class PlayerManager{
 private:
     sf::RenderWindow* window;
     MissileManager* missileManager;
     b2World * world;
+    sf::Font font;
     
 public:
     PlayerManager(MissileManager& misM);

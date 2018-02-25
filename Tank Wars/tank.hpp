@@ -24,7 +24,7 @@ class Player;
 
 class Tank{
 public:
-    Tank( sf::Texture* texture, MissileManager* mManager);
+    Tank( sf::Texture* texture, MissileManager* mManager, sf::Texture * baseTexture);
     ~Tank();
     void setOrigin(sf::Vector2f origin);
     void draw(sf::RenderWindow& window);
@@ -55,6 +55,8 @@ public:
     void die();
     bool isAlive();
     Player* getPlayerRef();
+    void setFont(sf::Font* font);
+    void setName(std::string name);
     
     
 private:
@@ -68,8 +70,10 @@ private:
     
     int health;
     sf::Texture texture;
-    sf::RectangleShape body, turret;
+    sf::RectangleShape body, turret, base;
     sf::IntRect bodyRect, turretRect;
+    sf::Font* font;
+    sf::Text name;
     float textureWidth, textureHeight;
     
     
@@ -89,7 +93,6 @@ private:
     sf::Vector2f resultantVelocityVector;
     
     float lastDTime;
-    
     
     float angularVelocity;
     float maxAngularVelocity;

@@ -21,11 +21,11 @@ void clearBuffer(char * start,std::size_t size){
 int main(int, char const**){
     sf::Sprite bg;
     sf::Texture bgTex;
-    bgTex.loadFromFile(resourcePath() + "bg.png");
+    bgTex.loadFromFile(resourcePath() + "desert2.png");
     bgTex.setRepeated(true);
     bg.setTexture(bgTex);
     bg.setPosition(0.0f, 0.0f);
-    bg.setScale(2.0f, 2.0f);
+    bg.setScale(4.0f, 4.0f);
     
     
     b2Vec2 gravity(0.0f,0.0f);
@@ -93,9 +93,9 @@ int main(int, char const**){
     //window.setFramerateLimit(60);
     
     //Initialize the view
-    sf::View view( sf::Vector2f(216,216) , sf::Vector2f(216 , 216) );
+    sf::View view;
     view.setCenter(512, 512);
-    view.setSize(1440, 1440);
+    view.setSize(2560*2, 1440*2);
     
     //Load the texture
     sf::Texture tankTexture;
@@ -125,10 +125,9 @@ int main(int, char const**){
     sf::Texture bTex;
     bTex.loadFromFile( resourcePath() + "fireball.png" );
     
-    sf::CircleShape ball;
-    ball.setTexture(&bTex);
-    ball.setRadius(10.0f);
-    ball.setPosition(450.0f, 450.0f);
+    
+    sf::Texture baseTexture;
+    baseTexture.loadFromFile(resourcePath() + "base.png");
     
     std::vector <Player> players;
     std::vector <Missile> missiles;
@@ -139,9 +138,6 @@ int main(int, char const**){
     tempIP = "127.0.0.1";
     int32 velocityIterations = 8;
     int32 positionIterations = 3;
-    //playerManager.addPlayer( Player(0,tempIP.toString(), 43250, tankTextures[2], window ) );
-    //missileManager.addMissile(playerManager.getPlayer(0));
-    //missileManager.missiles[0].body.setTexture(&bTex);
     
     long long fpsCounter= 0;
     std::cout<<"hello\n";
@@ -171,7 +167,7 @@ int main(int, char const**){
                         //std::cout<<"JOIN\n";
                         joinMessage* jm;
                         jm = (joinMessage*) receivingBuffer;
-                        playerManager.addPlayer( Player(jm->hash, tempIP, tempPort, tankTextures[jm->tankTextureId] , jm->name, window, &missileManager) );
+                        playerManager.addPlayer( Player(jm->hash, tempIP, tempPort, tankTextures[jm->tankTextureId] , jm->name, window, &missileManager, &baseTexture) );
                         break;
                     case LEAVE:
                         //std::cout<<"LEAVE\n";
@@ -216,9 +212,6 @@ int main(int, char const**){
         
         
         //window.setView(view);
-        //window.draw(temp);
-        ball.move(1.0f, 0.1f);
-        window.draw(ball);
         window.display();
         window.clear( sf::Color( 155 , 129 , 80 ) );
     }

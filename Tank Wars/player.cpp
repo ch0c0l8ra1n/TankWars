@@ -8,7 +8,8 @@
 
 #include "player.hpp"
 
-Player::Player(uint64_t hash,sf::IpAddress IP , unsigned short port, sf::Texture& texture, char* name, sf::RenderWindow& win, MissileManager * mManager):playerTank(&texture, mManager){
+Player::Player(uint64_t hash,sf::IpAddress IP , unsigned short port, sf::Texture& texture, char* name, sf::RenderWindow& win, MissileManager * mManager, sf::Texture* baseTexture):playerTank(&texture, mManager, baseTexture){
+    playerTank.setName(std::string(name));
     playerIP = IP;
     playerPort = port;
     this->hash = hash;
