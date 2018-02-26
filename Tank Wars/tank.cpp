@@ -52,7 +52,7 @@ Tank::Tank(sf::Texture* texture, MissileManager* mManager, sf::Texture* baseText
 
     
     name.setCharacterSize(50.0f);
-    name.setFillColor(sf::Color(100,255,25));
+    name.setFillColor(sf::Color(100,255,200,255));
     
     
     body.setOrigin(body.getSize()/2.0f);
@@ -289,6 +289,7 @@ void Tank::damage(){
 
 void Tank::die(){
     deathTime = getMs();
+    explosionManager->addExplosion(player);
     dead = true;
 }
 
@@ -308,4 +309,8 @@ void Tank::setFont(sf::Font* font){
 void Tank::setName(std::string name){
     this->name.setString(name);
     this->name.setOrigin(75.0f, 0.0f);
+}
+
+void Tank::setExplosionManager(ExplosionManager *explosionM){
+    explosionManager = explosionM;
 }

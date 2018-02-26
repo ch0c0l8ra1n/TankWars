@@ -43,6 +43,7 @@ bool PlayerManager::addPlayer(Player player){
     temp->playerTank.cBody->SetLinearVelocity(b2Vec2(random()%1000,random()%1000));
     temp->playerTank.cBody->SetAngularVelocity(1000.0f);
     temp->playerTank.setFont(&font);
+    temp->playerTank.setExplosionManager(explosionManager);
     
     updatePlayerRefs();
     
@@ -118,5 +119,9 @@ void PlayerManager::updatePlayerRefs(){
     for(int i=0;i<players.size();i++){
         players[i].playerTank.setPlayerRef(&players[i]);
     }
+}
+
+void PlayerManager::setExplosionManager(ExplosionManager *explosionM){
+    explosionManager = explosionM;
 }
 

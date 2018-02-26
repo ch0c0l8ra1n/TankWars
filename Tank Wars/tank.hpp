@@ -17,7 +17,7 @@
 #include "message.hpp"
 #include "unistd.h"
 #include <Box2D/Box2D.h>
-//#include "missileManager.hpp"
+#include "explosionManager.hpp"
 
 class MissileManager;
 class Player;
@@ -57,6 +57,7 @@ public:
     Player* getPlayerRef();
     void setFont(sf::Font* font);
     void setName(std::string name);
+    void setExplosionManager(ExplosionManager* explosionM);
     
     
 private:
@@ -100,6 +101,7 @@ private:
     float bodyOrientation;
     float turretOrientation;
     bool  pressedButtons[9];
+    ExplosionManager* explosionManager;
 };
 
 long long getMs();

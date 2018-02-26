@@ -17,6 +17,7 @@
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 #include "ResourcePath.hpp"
+#include "explosionManager.hpp"
 
 class PlayerManager{
 private:
@@ -24,6 +25,7 @@ private:
     MissileManager* missileManager;
     b2World * world;
     sf::Font font;
+    ExplosionManager* explosionManager;
     
 public:
     PlayerManager(MissileManager& misM);
@@ -38,6 +40,7 @@ public:
     Player* getPlayerByHash(uint64_t hash);
     void updatePlayerRefs();
     Player& getPlayer(int id);
+    void setExplosionManager(ExplosionManager* explosionM);
     ~PlayerManager();
 };
 

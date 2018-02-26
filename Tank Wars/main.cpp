@@ -10,6 +10,7 @@
 #include <string>
 #include "missileManager.hpp"
 #include "playerManager.hpp"
+#include "explosionManager.hpp"
 
 void clearBuffer(char * start,std::size_t size){
     for (uint i =0;i<std::min((int)size+1,1024);i++){
@@ -133,11 +134,18 @@ int main(int, char const**){
     std::vector <Missile> missiles;
     MissileManager missileManager(window);
     PlayerManager playerManager(missileManager);
+    ExplosionManager explosionManager;
+    
+    playerManager.setExplosionManager(&explosionManager);
     playerManager.setWorld(&world);
     missileManager.setPlayerManager(&playerManager);
     tempIP = "127.0.0.1";
     int32 velocityIterations = 8;
     int32 positionIterations = 3;
+    
+    sf::Texture tex;
+    tex.loadFromFile(resourcePath() + "explosion.png");
+    
     
     long long fpsCounter= 0;
     std::cout<<"hello\n";
@@ -196,6 +204,8 @@ int main(int, char const**){
         playerManager.updatePlayers(deltaTime);
         playerManager.drawPlayers(window);
         missileManager.updateMissiles(deltaTime);
+        explosionManager.update();
+        explosionManager.drawExplosions(window);
         
         sf::Event evnt;
         while(window.pollEvent(evnt)){
@@ -208,10 +218,6 @@ int main(int, char const**){
                     break;
             }
         }
-        
-        
-        
-        //window.setView(view);
         window.display();
         window.clear( sf::Color( 155 , 129 , 80 ) );
     }
