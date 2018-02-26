@@ -41,8 +41,8 @@ Tank::Tank(sf::Texture* texture, MissileManager* mManager, sf::Texture* baseText
     body.setPosition( random()%2400 , random()%1300 );
     turret.setPosition( body.getPosition() );
     
-    body.setSize(sf::Vector2f(100,150));
-    turret.setSize(sf::Vector2f(100,150));
+    body.setSize(sf::Vector2f(10,15));
+    turret.setSize(sf::Vector2f(10,15));
     
     base.setTexture(baseTexture);
     base.setSize( sf::Vector2f( 1.5f * std::max(body.getSize().x, body.getSize().y),
@@ -131,7 +131,7 @@ void Tank::update(float deltaTime){
             dead = false;
             health = 1000;
             healthBarLevel.setSize(healthBar.getSize());
-            cBody->SetTransform(b2Vec2(random()%2400, random()%1300) , 0.0f);
+            cBody->SetTransform(b2Vec2(random()%500, random()%500) , 0.0f);
             cBody->SetLinearVelocity(b2Vec2(random()%1000,random()%1000));
             cBody->SetAngularVelocity(1000.0f);
         }
@@ -158,7 +158,19 @@ void Tank::update(float deltaTime){
         cBody->ApplyForceToCenter(unitVector, true);
     }
     else{
-        //TODO: Decelerate;
+        b2Vec2 currVelocity =  cBody->GetLinearVelocity();
+        float currVelocityScalar = sqrt(pow(currVelocity.x,2) + pow(currVelocity.y,2));
+        std::cout<<currVelocityScalar<<"\n";
+        if(currVelocityScalar<1.0f){
+            cBody->SetLinearVelocity(b2Vec2(0.0f,0.0f));
+        }
+        else{
+            b2Vec2 unitVector = b2Vec2(currVelocity.x/currVelocityScalar, currVelocity.y/currVelocityScalar );
+            float force = cBody->GetMass() * 500.0f;
+            unitVector.x *= -force/4.0f;
+            unitVector.y *= -force/4.0f;
+            cBody->ApplyForceToCenter(unitVector , true);
+        }
     }
     
     if (pressedButtons[A]){
@@ -170,7 +182,16 @@ void Tank::update(float deltaTime){
         cBody->ApplyTorque(torque, true);
     }
     else{
-        //TODO: Decelerate;
+        float angV = cBody->GetAngularVelocity();
+        if(abs(angV) < 1.0f){
+            cBody->SetAngularVelocity(0.0f);
+        }
+        else{
+            int direction = (angV>=0) ? 1 : -1;
+            float torque = cBody->GetMass() * 10000.0f * body.getSize().x / 2 * -direction;
+            cBody->ApplyTorque(torque, true);
+        }
+        
     }
     
     float delTurretTheta = 0;
@@ -188,8 +209,8 @@ void Tank::update(float deltaTime){
             unitVector.x = -sin(angle*PI/180);
             unitVector.y = cos(angle*PI/180);
             float force = cBody->GetMass() * 500.0f;
-            unitVector.x *= -force;
-            unitVector.y *= -force;
+            unitVector.x *= -force*3.0f;
+            unitVector.y *= -force*3.0f;
             cBody->ApplyForceToCenter(unitVector, true);
             missileManager->addMissile(player);
             lastMissileTime = getMs();

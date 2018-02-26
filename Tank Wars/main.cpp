@@ -26,7 +26,7 @@ int main(int, char const**){
     bgTex.setRepeated(true);
     bg.setTexture(bgTex);
     bg.setPosition(0.0f, 0.0f);
-    bg.setScale(3.0f, 2.0f);
+    bg.setScale(1.0f, 1.0f);
     
     
     b2Vec2 gravity(0.0f,0.0f);
@@ -36,10 +36,10 @@ int main(int, char const**){
     for(int i=0;i<4;i++){
         walls[i].type = b2_staticBody;
     }
-    walls[0].position.Set( 0.0f, 720.0f );
-    walls[2].position.Set( 2560.0f, 720.0f);
-    walls[1].position.Set( 1280.0f, 0.0f);
-    walls[3].position.Set( 1280.0f, 1440.0f);
+    walls[0].position.Set( 0.0f, 500.0f );
+    walls[2].position.Set( 1000.0f, 500.0f);
+    walls[1].position.Set( 500.0f, 0.0f);
+    walls[3].position.Set( 500.0f, 1000.0f);
     
     b2Body* wallBodies[4];
     for(int i=0;i<4;i++){
@@ -95,8 +95,7 @@ int main(int, char const**){
     
     //Initialize the view
     sf::View view;
-    view.setCenter(512, 512);
-    view.setSize(2560*2, 1440*2);
+    view.setCenter(0.0f , 0.0f);
     
     //Load the texture
     sf::Texture tankTexture;
@@ -156,7 +155,6 @@ int main(int, char const**){
         if (fpsCounter++%60 == 0){
             //window.setTitle("FPS: "+std::to_string(int(1/deltaTime)));
         }
-        world.Step(deltaTime, velocityIterations, positionIterations);
         
         //accpets at maximum 64 udp messages.
         for(int i=0;i<64;i++){
@@ -200,12 +198,18 @@ int main(int, char const**){
             }
         }
         
+        world.Step(deltaTime, velocityIterations, positionIterations);
         
         playerManager.updatePlayers(deltaTime);
         playerManager.drawPlayers(window);
         missileManager.updateMissiles(deltaTime);
         explosionManager.update();
         explosionManager.drawExplosions(window);
+        
+        sf::FloatRect viewRect = playerManager.getMaxBounds();
+        view.setSize(viewRect.width, viewRect.height);
+        view.setCenter(viewRect.left , viewRect.top );
+
         
         sf::Event evnt;
         while(window.pollEvent(evnt)){
@@ -218,6 +222,7 @@ int main(int, char const**){
                     break;
             }
         }
+        window.setView(view);
         window.display();
         window.clear( sf::Color( 155 , 129 , 80 ) );
     }

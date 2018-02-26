@@ -38,8 +38,8 @@ bool PlayerManager::addPlayer(Player player){
     temp->playerTank.fixtureDef.density = 1.0f;
     temp->playerTank.fixtureDef.restitution = 0.1f;
     temp->playerTank.cBody->CreateFixture(&(temp->playerTank.fixtureDef));
-    temp->playerTank.cBody->SetLinearDamping(1.0f);
-    temp->playerTank.cBody->SetAngularDamping(1.0f);
+    //temp->playerTank.cBody->SetLinearDamping(1.0f);
+    //temp->playerTank.cBody->SetAngularDamping(1.0f);
     temp->playerTank.cBody->SetLinearVelocity(b2Vec2(random()%1000,random()%1000));
     temp->playerTank.cBody->SetAngularVelocity(1000.0f);
     temp->playerTank.setFont(&font);
@@ -124,4 +124,47 @@ void PlayerManager::updatePlayerRefs(){
 void PlayerManager::setExplosionManager(ExplosionManager *explosionM){
     explosionManager = explosionM;
 }
+
+
+sf::FloatRect PlayerManager::getMaxBounds(){
+    if(players.size() == 0){
+        sf::FloatRect bounds;
+        bounds.left = 500;
+        bounds.top = 500;
+        bounds.width = 500;
+        bounds.height = 500;
+        return bounds;
+    }
+    if(players.size() == 1){
+        sf::FloatRect bounds;
+        bounds.left = players[0].playerTank.getPosition().x;
+        bounds.top = players[0].playerTank.getPosition().y;
+        bounds.width = 200;
+        bounds.height = 200;
+        return bounds;
+    }
+    sf::FloatRect bounds;
+    bounds.left = 0;
+    bounds.top = 0;
+    bounds.width = 500;
+    bounds.height = 500;
+    std::cout<<"Player Details\n";
+    for (int i=0;i<players.size();i++){
+        sf::Vector2f pos = players[i].playerTank.getPosition();
+        bounds.left += pos.x;
+        bounds.top += pos.y;
+        std::cout<<pos.x<<"\t"<<pos.y<<"\n";
+    }
+    //std::cout<<bounds.left<<"\t"<<bounds.top<<"\n";
+    bounds.left /= players.size();
+    bounds.top  /= players.size();
+    //std::cout<<bounds.left<<"\t"<<bounds.top<<"\n";
+    return bounds;
+}
+
+
+
+
+
+
 

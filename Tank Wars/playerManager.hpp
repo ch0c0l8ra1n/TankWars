@@ -41,6 +41,7 @@ public:
     void updatePlayerRefs();
     Player& getPlayer(int id);
     void setExplosionManager(ExplosionManager* explosionM);
+    sf::FloatRect getMaxBounds();
     ~PlayerManager();
 };
 
