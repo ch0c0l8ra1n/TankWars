@@ -302,7 +302,7 @@ sf::Vector2f Tank::getSize(){
 }
 
 void Tank::damage(){
-    health -= 50;
+    health -= 100;
     if (health == 0){
         die();
         return;

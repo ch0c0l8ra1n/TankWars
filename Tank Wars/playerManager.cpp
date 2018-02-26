@@ -131,23 +131,15 @@ sf::FloatRect PlayerManager::getMaxBounds(){
         sf::FloatRect bounds;
         bounds.left = 250;
         bounds.top = 250;
-        bounds.width = 500*1.6f;
-        bounds.height = 500;
-        return bounds;
-    }
-    if(players.size() == 1){
-        sf::FloatRect bounds;
-        bounds.left = players[0].playerTank.getPosition().x;
-        bounds.top = players[0].playerTank.getPosition().y;
-        bounds.width = 200*1.6f;
-        bounds.height = 200;
+        bounds.width = 500;
+        bounds.height = 500/1.6f;
         return bounds;
     }
     sf::FloatRect bounds;
     bounds.left = 0;
     bounds.top = 0;
-    bounds.width = 500;
-    bounds.height = 500;
+    bounds.width = 250*1.6f;
+    bounds.height = 250;
     for (int i=0;i<players.size();i++){
         sf::Vector2f pos = players[i].playerTank.getPosition();
         bounds.left += pos.x;
@@ -162,16 +154,20 @@ sf::FloatRect PlayerManager::getMaxBounds(){
     }
     maxDistance = maxDistance * 2.0f;
     maxDistance.x += 100.0f;
-    maxDistance.y += 100.0f;
-    std::cout<<maxDistance.x<<"\t"<<maxDistance.y<<"\n";
-    bounds.width = std::max( 150.0f , std::min(bounds.width, maxDistance.x) );
-    bounds.height = std::max( 150.0f , std::min(bounds.height , maxDistance.y) );
+    maxDistance.y += 200.0f;
+    bounds.width = std::max( 150.0f , std::min( 500.0f, maxDistance.x) );
+    bounds.height = std::max( 150.0f , std::min(500.0f , maxDistance.y) );
+    
     if (bounds.height * 1.6f > bounds.width ){
+        std::cout<<bounds.width<<"\t";
         bounds.width = bounds.height * 1.6f;
+        std::cout<<bounds.width<<"\n";
     }
     else{
         bounds.height = bounds.width / 1.6f;
     }
+    bounds.left = std::min( 800 - bounds.width/2.0f , std::max(bounds.left , bounds.width/2.0f) );
+    bounds.top = std::min( 500 - bounds.height/2.0f , std::max(bounds.top , bounds.height/2.0f) );
     return bounds;
 }
 

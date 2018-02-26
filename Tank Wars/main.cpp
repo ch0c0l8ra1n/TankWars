@@ -26,7 +26,7 @@ int main(int, char const**){
     bgTex.setRepeated(true);
     bg.setTexture(bgTex);
     bg.setPosition(0.0f, 0.0f);
-    bg.setScale(0.5f, 0.5f);
+    bg.setScale(0.8f, 0.5f);
     
     b2Vec2 gravity(0.0f,0.0f);
     b2World world(gravity);
@@ -36,9 +36,9 @@ int main(int, char const**){
         walls[i].type = b2_staticBody;
     }
     walls[0].position.Set( 0.0f, 250.0f );
-    walls[2].position.Set( 500.0f, 250.0f);
-    walls[1].position.Set( 250.0f, 0.0f);
-    walls[3].position.Set( 250.0f, 500.0f);
+    walls[2].position.Set( 800.0f, 250.0f);
+    walls[1].position.Set( 400.0f, 0.0f);
+    walls[3].position.Set( 400.0f, 500.0f);
     
     b2Body* wallBodies[4];
     for(int i=0;i<4;i++){
@@ -46,11 +46,11 @@ int main(int, char const**){
     }
     
     b2PolygonShape wallShapes[4];
-    wallShapes[0].SetAsBox(5.0f, 1440.0f);
-    wallShapes[2].SetAsBox(5.0f, 1440.0f);
+    wallShapes[0].SetAsBox(1.0f, 1440.0f);
+    wallShapes[2].SetAsBox(1.0f, 1440.0f);
     
-    wallShapes[1].SetAsBox(1440.0f, 5.0f);
-    wallShapes[3].SetAsBox(1440.0f, 5.0f);
+    wallShapes[1].SetAsBox(1440.0f, 1.0f);
+    wallShapes[3].SetAsBox(1440.0f, 1.0f);
     
     b2FixtureDef wallFixtureDefs[4];
     for(int i=0;i<4;i++){
