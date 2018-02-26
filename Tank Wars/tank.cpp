@@ -38,7 +38,7 @@ Tank::Tank(sf::Texture* texture, MissileManager* mManager, sf::Texture* baseText
     bodyOrientation = 0.0f;
     turretOrientation = 0.0f;
     
-    body.setPosition( random()%2400 , random()%1300 );
+    body.setPosition( random()%500 , random()%500 );
     turret.setPosition( body.getPosition() );
     
     body.setSize(sf::Vector2f(10,15));
@@ -51,8 +51,10 @@ Tank::Tank(sf::Texture* texture, MissileManager* mManager, sf::Texture* baseText
     base.setFillColor(sf::Color(255,255,255,200));
 
     
-    name.setCharacterSize(50.0f);
-    name.setFillColor(sf::Color(100,255,200,255));
+    name.setCharacterSize(5.0f);
+    name.setFillColor(sf::Color(255,255,255));
+    name.setOutlineColor(sf::Color(0,0,0));
+    name.setOutlineThickness(0.2f);
     
     
     body.setOrigin(body.getSize()/2.0f);
@@ -84,12 +86,12 @@ Tank::Tank(sf::Texture* texture, MissileManager* mManager, sf::Texture* baseText
     
     int temp = random()%360;
     
-    healthBar.setSize(sf::Vector2f(150.0f,10.0f));
+    healthBar.setSize(sf::Vector2f(15.0f,1.0f));
     healthBarLevel.setSize(healthBar.getSize());
     
     healthBarLevel.setFillColor(sf::Color(100,250,75));
     healthBar.setOutlineColor(sf::Color(250,75,25));
-    healthBar.setOutlineThickness(2.0f);
+    healthBar.setOutlineThickness(0.2f);
     healthBar.setFillColor(sf::Color(0,0,0,0));
     
     healthBar.setOrigin(healthBar.getSize()/2.0f);
@@ -142,7 +144,7 @@ void Tank::update(float deltaTime){
         b2Vec2 unitVector;
         unitVector.x = -sin(angle*PI/180);
         unitVector.y = cos(angle*PI/180);
-        float force = cBody->GetMass() * 500.0f;
+        float force = cBody->GetMass() * 100.0f;
         unitVector.x *= force;
         unitVector.y *= force;
         cBody->ApplyForceToCenter(unitVector, true);
@@ -152,7 +154,7 @@ void Tank::update(float deltaTime){
         b2Vec2 unitVector;
         unitVector.x = -sin(angle*PI/180);
         unitVector.y = cos(angle*PI/180);
-        float force = cBody->GetMass() * -500.0f;
+        float force = cBody->GetMass() * -100.0f;
         unitVector.x *= force;
         unitVector.y *= force;
         cBody->ApplyForceToCenter(unitVector, true);
@@ -160,25 +162,24 @@ void Tank::update(float deltaTime){
     else{
         b2Vec2 currVelocity =  cBody->GetLinearVelocity();
         float currVelocityScalar = sqrt(pow(currVelocity.x,2) + pow(currVelocity.y,2));
-        std::cout<<currVelocityScalar<<"\n";
         if(currVelocityScalar<1.0f){
             cBody->SetLinearVelocity(b2Vec2(0.0f,0.0f));
         }
         else{
             b2Vec2 unitVector = b2Vec2(currVelocity.x/currVelocityScalar, currVelocity.y/currVelocityScalar );
-            float force = cBody->GetMass() * 500.0f;
-            unitVector.x *= -force/4.0f;
-            unitVector.y *= -force/4.0f;
+            float force = cBody->GetMass() * 100.0f;
+            unitVector.x *= -force;
+            unitVector.y *= -force;
             cBody->ApplyForceToCenter(unitVector , true);
         }
     }
     
     if (pressedButtons[A]){
-        float torque = cBody->GetMass() * -10000.0f * body.getSize().x / 2;
+        float torque = cBody->GetMass() * -2000.0f * body.getSize().x / 2;
         cBody->ApplyTorque(torque, true);
     }
     else if (pressedButtons[D]){
-        float torque = cBody->GetMass() * 10000.0f * body.getSize().x / 2;
+        float torque = cBody->GetMass() * 2000.0f * body.getSize().x / 2;
         cBody->ApplyTorque(torque, true);
     }
     else{
@@ -188,7 +189,7 @@ void Tank::update(float deltaTime){
         }
         else{
             int direction = (angV>=0) ? 1 : -1;
-            float torque = cBody->GetMass() * 10000.0f * body.getSize().x / 2 * -direction;
+            float torque = cBody->GetMass() * 2000.0f * body.getSize().x / 2 * -direction;
             cBody->ApplyTorque(torque, true);
         }
         
@@ -208,9 +209,9 @@ void Tank::update(float deltaTime){
             b2Vec2 unitVector;
             unitVector.x = -sin(angle*PI/180);
             unitVector.y = cos(angle*PI/180);
-            float force = cBody->GetMass() * 500.0f;
-            unitVector.x *= -force*3.0f;
-            unitVector.y *= -force*3.0f;
+            float force = cBody->GetMass() * 100.0f;
+            unitVector.x *= -force*4.0f;
+            unitVector.y *= -force*4.0f;
             cBody->ApplyForceToCenter(unitVector, true);
             missileManager->addMissile(player);
             lastMissileTime = getMs();
@@ -228,7 +229,7 @@ void Tank::update(float deltaTime){
     sf::Vector2f size ( ((float)health/1000) * healthBar.getSize().x , healthBar.getSize().y );
     healthBarLevel.setSize(size);
     
-    healthBar.setPosition(pos.x , pos.y+100.0f);
+    healthBar.setPosition(pos.x , pos.y+10.0f);
     healthBarLevel.setPosition(healthBar.getPosition());
     
     base.setPosition( body.getPosition());
@@ -329,7 +330,7 @@ void Tank::setFont(sf::Font* font){
 
 void Tank::setName(std::string name){
     this->name.setString(name);
-    this->name.setOrigin(75.0f, 0.0f);
+    this->name.setOrigin(7.5f, 0.0f);
 }
 
 void Tank::setExplosionManager(ExplosionManager *explosionM){

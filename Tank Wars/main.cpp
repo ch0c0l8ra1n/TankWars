@@ -26,8 +26,7 @@ int main(int, char const**){
     bgTex.setRepeated(true);
     bg.setTexture(bgTex);
     bg.setPosition(0.0f, 0.0f);
-    bg.setScale(1.0f, 1.0f);
-    
+    bg.setScale(0.5f, 0.5f);
     
     b2Vec2 gravity(0.0f,0.0f);
     b2World world(gravity);
@@ -36,10 +35,10 @@ int main(int, char const**){
     for(int i=0;i<4;i++){
         walls[i].type = b2_staticBody;
     }
-    walls[0].position.Set( 0.0f, 500.0f );
-    walls[2].position.Set( 1000.0f, 500.0f);
-    walls[1].position.Set( 500.0f, 0.0f);
-    walls[3].position.Set( 500.0f, 1000.0f);
+    walls[0].position.Set( 0.0f, 250.0f );
+    walls[2].position.Set( 500.0f, 250.0f);
+    walls[1].position.Set( 250.0f, 0.0f);
+    walls[3].position.Set( 250.0f, 500.0f);
     
     b2Body* wallBodies[4];
     for(int i=0;i<4;i++){
@@ -95,7 +94,8 @@ int main(int, char const**){
     
     //Initialize the view
     sf::View view;
-    view.setCenter(0.0f , 0.0f);
+    view.setCenter(250.0f , 250.0f);
+    view.setSize(250*1.6, 250);
     
     //Load the texture
     sf::Texture tankTexture;
@@ -149,7 +149,13 @@ int main(int, char const**){
     long long fpsCounter= 0;
     std::cout<<"hello\n";
     
+    sf::Music bgMusic;
+    bgMusic.openFromFile(resourcePath() + "desertNoise.ogg");
+    bgMusic.setLoop(true);
+    bgMusic.play();
+    
     while(window.isOpen()){
+        
         window.draw(bg);
         deltaTime = clock.restart().asSeconds();
         if (fpsCounter++%60 == 0){
@@ -207,8 +213,48 @@ int main(int, char const**){
         explosionManager.drawExplosions(window);
         
         sf::FloatRect viewRect = playerManager.getMaxBounds();
-        view.setSize(viewRect.width, viewRect.height);
-        view.setCenter(viewRect.left , viewRect.top );
+        
+        sf::Vector2f pViewCenter = view.getCenter();
+        sf::Vector2f pViewSize = view.getSize();
+        
+        sf::Vector2f nViewCenter;
+        sf::Vector2f nViewSize;
+        
+        if (viewRect.left > pViewCenter.x){
+            nViewCenter.x = (viewRect.left < pViewCenter.x + 1.0f ) ? viewRect.left : (pViewCenter.x + 1.0f);
+        }
+        else{
+            nViewCenter.x = (viewRect.left > pViewCenter.x - 1.0f ) ? viewRect.left : (pViewCenter.x - 1.0f);
+        }
+        
+        if (viewRect.top > pViewCenter.y){
+            nViewCenter.y = (viewRect.top < pViewCenter.y + 1.0f ) ? viewRect.top : (pViewCenter.y + 1.0f);
+        }
+        else{
+            nViewCenter.y = (viewRect.top > pViewCenter.y - 1.0f ) ? viewRect.top : (pViewCenter.y - 1.0f);
+        }
+        
+        ////
+        ////
+        
+        if (viewRect.width > pViewSize.x){
+            nViewSize.x = (viewRect.width < pViewSize.x + 1.0f ) ? viewRect.width : (pViewSize.x + 1.0f);
+        }
+        else{
+            nViewSize.x = (viewRect.width > pViewSize.x - 1.0f ) ? viewRect.width : (pViewSize.x - 1.0f);
+        }
+        
+        if (viewRect.height > pViewSize.y){
+            nViewSize.y = (viewRect.height < pViewSize.y + 1.0f ) ? viewRect.height : (pViewSize.y + 1.0f);
+        }
+        else{
+            nViewSize.y = (viewRect.height  > pViewSize.y - 1.0f ) ? viewRect.height : (pViewSize.y - 1.0f);
+        }
+        
+        
+        view.setCenter(nViewCenter);
+        view.setSize(nViewSize);
+        
 
         
         sf::Event evnt;
@@ -228,4 +274,8 @@ int main(int, char const**){
     }
 
     return EXIT_SUCCESS;
+}
+
+int polarity(float temp){
+    return (temp >= 0.0f) ? 1 : -1;
 }

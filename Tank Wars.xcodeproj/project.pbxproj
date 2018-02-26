@@ -12,6 +12,10 @@
 		884B0F1A2030A82F009A484E /* playerManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 884B0F182030A82F009A484E /* playerManager.cpp */; };
 		884B0F1D2030AC1C009A484E /* missileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 884B0F1B2030AC1C009A484E /* missileManager.cpp */; };
 		884B0F41203205C8009A484E /* fireball.png in Resources */ = {isa = PBXBuildFile; fileRef = 884B0F40203205C8009A484E /* fireball.png */; };
+		885CF60B204460A700379422 /* DeathFlash.flac in Resources */ = {isa = PBXBuildFile; fileRef = 885CF60A204460A700379422 /* DeathFlash.flac */; };
+		885CF60D2044637900379422 /* gunshot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 885CF60C2044637900379422 /* gunshot.wav */; };
+		885CF60F204464FC00379422 /* gunshot.flac in Resources */ = {isa = PBXBuildFile; fileRef = 885CF60E204464FC00379422 /* gunshot.flac */; };
+		885CF612204466D600379422 /* desertNoise.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 885CF611204466D600379422 /* desertNoise.ogg */; };
 		886B61D6201A459C009948F8 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 886B61D5201A459C009948F8 /* ResourcePath.mm */; };
 		886B61D9201A459C009948F8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 886B61D8201A459C009948F8 /* main.cpp */; };
 		886B61E2201A459C009948F8 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61E1201A459C009948F8 /* icon.png */; };
@@ -47,6 +51,10 @@
 		884B0F1B2030AC1C009A484E /* missileManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = missileManager.cpp; sourceTree = "<group>"; };
 		884B0F1C2030AC1C009A484E /* missileManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = missileManager.hpp; sourceTree = "<group>"; };
 		884B0F40203205C8009A484E /* fireball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireball.png; path = ../../../../Downloads/fireball.png; sourceTree = "<group>"; };
+		885CF60A204460A700379422 /* DeathFlash.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = DeathFlash.flac; sourceTree = "<group>"; };
+		885CF60C2044637900379422 /* gunshot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gunshot.wav; sourceTree = "<group>"; };
+		885CF60E204464FC00379422 /* gunshot.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = gunshot.flac; sourceTree = "<group>"; };
+		885CF611204466D600379422 /* desertNoise.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; name = desertNoise.ogg; path = ../../../../Downloads/desertNoise.ogg; sourceTree = "<group>"; };
 		886B61D0201A459C009948F8 /* Tank Wars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tank Wars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B61D4201A459C009948F8 /* Tank Wars-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tank Wars-Info.plist"; sourceTree = "<group>"; };
 		886B61D5201A459C009948F8 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
@@ -160,7 +168,11 @@
 		886B61DA201A459C009948F8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				885CF60A204460A700379422 /* DeathFlash.flac */,
 				88EBA5C02042E61A00530A7E /* desert2.png */,
+				885CF60C2044637900379422 /* gunshot.wav */,
+				885CF611204466D600379422 /* desertNoise.ogg */,
+				885CF60E204464FC00379422 /* gunshot.flac */,
 				884B0F40203205C8009A484E /* fireball.png */,
 				886B61EB201A45D7009948F8 /* tank2.png */,
 				88F59BD420431498000647A6 /* gameFont.ttf */,
@@ -239,10 +251,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				885CF60F204464FC00379422 /* gunshot.flac in Resources */,
 				88EBA5BF20417CE200530A7E /* bg.png in Resources */,
 				886B61F6201A45D7009948F8 /* tank5.png in Resources */,
 				886B61F2201A45D7009948F8 /* tank4.png in Resources */,
+				885CF60D2044637900379422 /* gunshot.wav in Resources */,
 				886B61F1201A45D7009948F8 /* tank3.png in Resources */,
+				885CF612204466D600379422 /* desertNoise.ogg in Resources */,
 				886B61E2201A459C009948F8 /* icon.png in Resources */,
 				886B61F0201A45D7009948F8 /* T34_strip2.png in Resources */,
 				88EBA5BD20417C1100530A7E /* bg.jpg in Resources */,
@@ -250,6 +265,7 @@
 				88A6EBAD2043D3B900B3146E /* explosion.png in Resources */,
 				886B61F3201A45D7009948F8 /* tank2.png in Resources */,
 				88F59BD520431498000647A6 /* gameFont.ttf in Resources */,
+				885CF60B204460A700379422 /* DeathFlash.flac in Resources */,
 				884B0F41203205C8009A484E /* fireball.png in Resources */,
 				88DC7363201DA99100B98450 /* missile.png in Resources */,
 				88F59BCD20430DFA000647A6 /* base.png in Resources */,

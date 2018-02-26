@@ -22,6 +22,7 @@ private:
     sf::RenderWindow* window;
     sf::Texture texture;
     PlayerManager* playerManager;
+    sf::Music fire;
 public:
     std::vector<Missile> missiles;
     MissileManager(sf::RenderWindow& win);

@@ -36,7 +36,7 @@ bool PlayerManager::addPlayer(Player player){
     temp->playerTank.fixtureDef.shape = &temp->playerTank.shape;
     temp->playerTank.fixtureDef.friction = 0.0f;
     temp->playerTank.fixtureDef.density = 1.0f;
-    temp->playerTank.fixtureDef.restitution = 0.1f;
+    temp->playerTank.fixtureDef.restitution = 0.0f;
     temp->playerTank.cBody->CreateFixture(&(temp->playerTank.fixtureDef));
     //temp->playerTank.cBody->SetLinearDamping(1.0f);
     //temp->playerTank.cBody->SetAngularDamping(1.0f);
@@ -129,9 +129,9 @@ void PlayerManager::setExplosionManager(ExplosionManager *explosionM){
 sf::FloatRect PlayerManager::getMaxBounds(){
     if(players.size() == 0){
         sf::FloatRect bounds;
-        bounds.left = 500;
-        bounds.top = 500;
-        bounds.width = 500;
+        bounds.left = 250;
+        bounds.top = 250;
+        bounds.width = 500*1.6f;
         bounds.height = 500;
         return bounds;
     }
@@ -139,7 +139,7 @@ sf::FloatRect PlayerManager::getMaxBounds(){
         sf::FloatRect bounds;
         bounds.left = players[0].playerTank.getPosition().x;
         bounds.top = players[0].playerTank.getPosition().y;
-        bounds.width = 200;
+        bounds.width = 200*1.6f;
         bounds.height = 200;
         return bounds;
     }
@@ -148,17 +148,30 @@ sf::FloatRect PlayerManager::getMaxBounds(){
     bounds.top = 0;
     bounds.width = 500;
     bounds.height = 500;
-    std::cout<<"Player Details\n";
     for (int i=0;i<players.size();i++){
         sf::Vector2f pos = players[i].playerTank.getPosition();
         bounds.left += pos.x;
         bounds.top += pos.y;
-        std::cout<<pos.x<<"\t"<<pos.y<<"\n";
     }
-    //std::cout<<bounds.left<<"\t"<<bounds.top<<"\n";
     bounds.left /= players.size();
     bounds.top  /= players.size();
-    //std::cout<<bounds.left<<"\t"<<bounds.top<<"\n";
+    sf::Vector2f maxDistance(0,0);
+    for (int i=0;i <players.size(); i++){
+        maxDistance.x = std::max(maxDistance.x , bounds.left - abs(players[i].playerTank.getPosition().x) );
+        maxDistance.y = std::max(maxDistance.y , bounds.top - abs(players[i].playerTank.getPosition().y) );
+    }
+    maxDistance = maxDistance * 2.0f;
+    maxDistance.x += 100.0f;
+    maxDistance.y += 100.0f;
+    std::cout<<maxDistance.x<<"\t"<<maxDistance.y<<"\n";
+    bounds.width = std::max( 150.0f , std::min(bounds.width, maxDistance.x) );
+    bounds.height = std::max( 150.0f , std::min(bounds.height , maxDistance.y) );
+    if (bounds.height * 1.6f > bounds.width ){
+        bounds.width = bounds.height * 1.6f;
+    }
+    else{
+        bounds.height = bounds.width / 1.6f;
+    }
     return bounds;
 }
 

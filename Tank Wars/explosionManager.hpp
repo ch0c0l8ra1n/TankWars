@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "explosion.hpp"
+#include <SFML/Audio.hpp>
 
 class ExplosionManager{
 public:
@@ -21,6 +22,7 @@ public:
 private:
     std::vector<Explosion> explosions;
     sf::Texture explosionTexture;
+    sf::Music explosionSound;
 };
 
 #endif /* explosionManager_hpp */

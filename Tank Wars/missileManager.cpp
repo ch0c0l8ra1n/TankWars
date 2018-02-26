@@ -12,11 +12,14 @@
 MissileManager::MissileManager(sf::RenderWindow& win){
     window = &win;
     texture.loadFromFile(resourcePath() + "fireball.png");
+    fire.openFromFile(resourcePath() + "gunshot.flac");
+    fire.setVolume( fire.getVolume() / 20.0f);
 }
 
 void MissileManager::addMissile(Player* player){
     Missile temp(player,texture);
     missiles.push_back( temp );
+    fire.play();
 }
 
 void MissileManager::updateMissiles(float deltaTime){

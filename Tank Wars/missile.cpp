@@ -9,17 +9,17 @@
 #include "missile.hpp"
 
 Missile::Missile( Player* player, sf::Texture& texture):originPlayer(player){
-    velocityScalar = 500.0f;
+    velocityScalar = 200.0f;
     body.setTexture(&texture);
-    body.setRadius(10.0f);
-    body.setOrigin(5.0f, 5.0f);
+    body.setRadius(1.0f);
+    body.setOrigin(0.5f, 0.5f);
     body.setPosition(player->playerTank.getPosition());
     orientation = player->playerTank.getTurretOrientation();
     unitVector.x = -sin(orientation*PI/180);
     unitVector.y = cos(orientation*PI/180);
     velocity.x = velocityScalar * unitVector.x;
     velocity.y = velocityScalar * unitVector.y;
-    body.move(velocity/7.0f);
+    body.move(velocity/28.0f);
     creationTime = getMs();
 }
 

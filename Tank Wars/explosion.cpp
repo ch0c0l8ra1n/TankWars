@@ -19,7 +19,7 @@ Explosion::Explosion(sf::Texture* texture, Player* player){
     column = 3;
     forward = true;
     lastKnownTime = getMs();
-    shape.setSize(sf::Vector2f(200.0f,200.0f));
+    shape.setSize(player->playerTank.getSize() * 2.0f);
     shape.setTexture(texture);
     shape.setTextureRect(sf::IntRect( column * width , row * height , width , height ));
     shape.setOrigin(shape.getSize()/2.0f);
