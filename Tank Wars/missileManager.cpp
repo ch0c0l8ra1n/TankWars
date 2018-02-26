@@ -67,3 +67,7 @@ int MissileManager::checkCollisions(){
         i++;
     }
 }
+
+void MissileManager::setScoreBoard(ScoreBoard *scoreB){
+    scoreBoard = scoreB;
+}

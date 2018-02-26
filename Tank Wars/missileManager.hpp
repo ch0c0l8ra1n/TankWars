@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include "missile.hpp"
 #include "player.hpp"
+#include "scoreBoard.hpp"
 
 class PlayerManager;
 
@@ -22,7 +23,9 @@ private:
     sf::RenderWindow* window;
     sf::Texture texture;
     PlayerManager* playerManager;
+    ScoreBoard* scoreBoard;
     sf::Music fire;
+    
 public:
     std::vector<Missile> missiles;
     MissileManager(sf::RenderWindow& win);
@@ -31,6 +34,7 @@ public:
     void updateMissiles(float deltaTime);
     void setPlayerManager(PlayerManager* manager);
     int checkCollisions();
+    void setScoreBoard(ScoreBoard* scoreB);
 };
 
 #endif /* missileManager_hpp */

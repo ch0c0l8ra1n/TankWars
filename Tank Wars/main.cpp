@@ -11,6 +11,8 @@
 #include "missileManager.hpp"
 #include "playerManager.hpp"
 #include "explosionManager.hpp"
+#include "menu.hpp"
+#include "scoreBoard.hpp"
 
 void clearBuffer(char * start,std::size_t size){
     for (uint i =0;i<std::min((int)size+1,1024);i++){
@@ -134,6 +136,8 @@ int main(int, char const**){
     MissileManager missileManager(window);
     PlayerManager playerManager(missileManager);
     ExplosionManager explosionManager;
+    ScoreBoard scoreBoard;
+    
     
     playerManager.setExplosionManager(&explosionManager);
     playerManager.setWorld(&world);
@@ -153,6 +157,41 @@ int main(int, char const**){
     bgMusic.openFromFile(resourcePath() + "desertNoise.ogg");
     bgMusic.setLoop(true);
     bgMusic.play();
+    
+    Menu menu;
+    state menuState;
+    while(window.isOpen()){
+        menu.update();
+        menu.draw(window);
+        sf::Event evnt;
+        while(window.pollEvent(evnt)){
+            switch (evnt.type) {
+                case sf::Event::Closed:
+                    window.close();
+                    return EXIT_SUCCESS;
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+        window.display();
+        window.clear( sf::Color( 155 , 129 , 80 ) );
+        
+        menuState = menu.getState();
+        if (menuState == EXIT){
+            return EXIT_SUCCESS;
+        }
+        if (menuState == ABOUT){
+            menu.setState(ABOUT_SELECTED);
+        }
+        else if(menuState == START){
+            break;
+        }
+    }
+    if (menuState == ABOUT){
+        
+    }
     
     while(window.isOpen()){
         

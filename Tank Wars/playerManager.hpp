@@ -18,6 +18,7 @@
 #include <Box2D/Box2D.h>
 #include "ResourcePath.hpp"
 #include "explosionManager.hpp"
+#include "scoreBoard.hpp"
 
 class PlayerManager{
 private:
@@ -26,6 +27,7 @@ private:
     b2World * world;
     sf::Font font;
     ExplosionManager* explosionManager;
+    ScoreBoard* scoreBoard;
     
 public:
     PlayerManager(MissileManager& misM);
@@ -41,6 +43,7 @@ public:
     void updatePlayerRefs();
     Player& getPlayer(int id);
     void setExplosionManager(ExplosionManager* explosionM);
+    void setScoreBoard(ScoreBoard* scoreB);
     sf::FloatRect getMaxBounds();
     ~PlayerManager();
 };

@@ -19,6 +19,17 @@ struct Score{
 
 class ScoreBoard{
 public:
+    ScoreBoard(){};
+    void addPlayer(Player* player);
+    void removePlayer(Player* player);
+    void addKill(Player* player);
+    void draw(sf::RenderWindow& window);
+
+private:
+    std::vector<Score> scores;
+    sf::Text ScoreBoardTitle;
+    sf::Text scoreTexts;
+    
 };
 
 

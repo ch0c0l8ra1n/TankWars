@@ -172,7 +172,9 @@ sf::FloatRect PlayerManager::getMaxBounds(){
 }
 
 
-
+void PlayerManager::setScoreBoard(ScoreBoard *scoreB){
+    scoreBoard = scoreB;
+}
 
 
 

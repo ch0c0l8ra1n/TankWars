@@ -16,6 +16,8 @@
 		885CF60D2044637900379422 /* gunshot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 885CF60C2044637900379422 /* gunshot.wav */; };
 		885CF60F204464FC00379422 /* gunshot.flac in Resources */ = {isa = PBXBuildFile; fileRef = 885CF60E204464FC00379422 /* gunshot.flac */; };
 		885CF612204466D600379422 /* desertNoise.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 885CF611204466D600379422 /* desertNoise.ogg */; };
+		885CF615204474A400379422 /* menu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 885CF613204474A400379422 /* menu.cpp */; };
+		885CF617204484E200379422 /* menubg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 885CF616204484E200379422 /* menubg.jpg */; };
 		886B61D6201A459C009948F8 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 886B61D5201A459C009948F8 /* ResourcePath.mm */; };
 		886B61D9201A459C009948F8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 886B61D8201A459C009948F8 /* main.cpp */; };
 		886B61E2201A459C009948F8 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 886B61E1201A459C009948F8 /* icon.png */; };
@@ -55,6 +57,9 @@
 		885CF60C2044637900379422 /* gunshot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gunshot.wav; sourceTree = "<group>"; };
 		885CF60E204464FC00379422 /* gunshot.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = gunshot.flac; sourceTree = "<group>"; };
 		885CF611204466D600379422 /* desertNoise.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; name = desertNoise.ogg; path = ../../../../Downloads/desertNoise.ogg; sourceTree = "<group>"; };
+		885CF613204474A400379422 /* menu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = menu.cpp; sourceTree = "<group>"; };
+		885CF614204474A400379422 /* menu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = menu.hpp; sourceTree = "<group>"; };
+		885CF616204484E200379422 /* menubg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = menubg.jpg; sourceTree = "<group>"; };
 		886B61D0201A459C009948F8 /* Tank Wars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tank Wars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		886B61D4201A459C009948F8 /* Tank Wars-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tank Wars-Info.plist"; sourceTree = "<group>"; };
 		886B61D5201A459C009948F8 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
@@ -142,6 +147,8 @@
 				88A6EBAF2043D3E900B3146E /* explosion.hpp */,
 				88A6EBB12043DDAB00B3146E /* explosionManager.cpp */,
 				88A6EBB22043DDAB00B3146E /* explosionManager.hpp */,
+				885CF613204474A400379422 /* menu.cpp */,
+				885CF614204474A400379422 /* menu.hpp */,
 				8839FED720278295008A9194 /* message.cpp */,
 				8839FED820278295008A9194 /* message.hpp */,
 				886B61D5201A459C009948F8 /* ResourcePath.mm */,
@@ -169,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				885CF60A204460A700379422 /* DeathFlash.flac */,
+				885CF616204484E200379422 /* menubg.jpg */,
 				88EBA5C02042E61A00530A7E /* desert2.png */,
 				885CF60C2044637900379422 /* gunshot.wav */,
 				885CF611204466D600379422 /* desertNoise.ogg */,
@@ -257,6 +265,7 @@
 				886B61F2201A45D7009948F8 /* tank4.png in Resources */,
 				885CF60D2044637900379422 /* gunshot.wav in Resources */,
 				886B61F1201A45D7009948F8 /* tank3.png in Resources */,
+				885CF617204484E200379422 /* menubg.jpg in Resources */,
 				885CF612204466D600379422 /* desertNoise.ogg in Resources */,
 				886B61E2201A459C009948F8 /* icon.png in Resources */,
 				886B61F0201A45D7009948F8 /* T34_strip2.png in Resources */,
@@ -300,6 +309,7 @@
 			files = (
 				886B61D9201A459C009948F8 /* main.cpp in Sources */,
 				88EBA5BB2041417000530A7E /* scoreBoard.cpp in Sources */,
+				885CF615204474A400379422 /* menu.cpp in Sources */,
 				886B61D6201A459C009948F8 /* ResourcePath.mm in Sources */,
 				88A6EBB32043DDAB00B3146E /* explosionManager.cpp in Sources */,
 				88F867F02030278600C9E122 /* player.cpp in Sources */,
