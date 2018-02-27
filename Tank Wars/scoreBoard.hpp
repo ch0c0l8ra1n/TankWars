@@ -11,24 +11,24 @@
 
 #include <stdio.h>
 #include "player.hpp"
+#include "ResourcePath.hpp"
 
-struct Score{
-    Player* player;
-    int kills;
-};
+
+
+class PlayerManager;
 
 class ScoreBoard{
 public:
-    ScoreBoard(){};
-    void addPlayer(Player* player);
-    void removePlayer(Player* player);
-    void addKill(Player* player);
+    ScoreBoard();
     void draw(sf::RenderWindow& window);
+    void setPlayerManager(PlayerManager* playerM);
 
 private:
-    std::vector<Score> scores;
-    sf::Text ScoreBoardTitle;
-    sf::Text scoreTexts;
+    sf::Font font;
+    sf::Text scoreBoardTitle;
+    sf::Text scoreText;
+    PlayerManager* playerManager;
+    
     
 };
 

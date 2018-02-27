@@ -8,44 +8,40 @@
 
 #include "scoreBoard.hpp"
 #include <algorithm>
+#include <iostream>
 
-bool compareByKills(const Score &a, const Score &b){
-    return a.kills < b.kills;
+#include "playerManager.hpp"
+
+ScoreBoard::ScoreBoard(){
+    font.loadFromFile(resourcePath() + "gameFont.ttf");
+    scoreText.setFont(font);
+    scoreText.setPosition(1500, 1450);
+    scoreText.setCharacterSize(15.0f);
+    scoreText.setFillColor(sf::Color::White);
+    scoreText.setOutlineColor(sf::Color::Black);
+    scoreText.setOutlineThickness(1.0f);
+    
+    scoreBoardTitle.setFont(font);
+    scoreBoardTitle.setPosition(1500, 1400); //(1500, 1600)
+    scoreBoardTitle.setCharacterSize(15.0f);
+    scoreBoardTitle.setString(sf::String("ScoreBoard:"));
+    scoreBoardTitle.setFillColor(sf::Color::White);
+    scoreBoardTitle.setOutlineColor(sf::Color::Black);
+    scoreBoardTitle.setOutlineThickness(1.0f);
 }
 
-void ScoreBoard::addPlayer(Player *player){
-    for(int i=0;i<scores.size();i++){
-        if(scores[i].player->getHash() == player->getHash()){
-            return;
-        }
-    }
-    Score temp;
-    temp.player = player;
-    temp.kills = 0;
-    scores.push_back(temp);
-    std::sort(scores.begin() , scores.end() , compareByKills);
-}
-
-void ScoreBoard::removePlayer(Player *player){
-    for(int i=0;i<scores.size();i++){
-        if(scores[i].player->getHash() == player->getHash()){
-            scores.erase(scores.begin() + i);
-            return;
-        }
-    }
-    return;
-    std::sort(scores.begin() , scores.end(), compareByKills);
-}
-
-void ScoreBoard::addKill(Player* player){
-    for (int i=0;i<scores.size();i++){
-        if(scores[i].player->getHash() == player->getHash()){
-            scores[i].kills += 1;
-        }
-    }
+void ScoreBoard::setPlayerManager(PlayerManager *playerM){
+    playerManager = playerM;
 }
 
 
 void ScoreBoard::draw(sf::RenderWindow& window){
-    
+    window.draw(scoreBoardTitle);
+    for(int i=0;i<playerManager->players.size();i++){
+        std::string temp = std::string(playerManager->players[i].getName()) + std::string("\t") + std::to_string(playerManager->players[i].getKills());
+        scoreText.setString( temp);
+        std::cout<<playerManager->players[i].getName()<<"\t"<<playerManager->players[i].getKills()<<"\n";
+        window.draw(scoreText);
+        scoreText.setPosition(1500, 1450 + (20*(i+1) ) );
+    }
 }

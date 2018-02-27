@@ -60,6 +60,7 @@ int MissileManager::checkCollisions(){
                 playerManager->players[j].isAlive() &&
                 playerManager->players[j].getHash() != missiles[i].getPlayer()->getHash()){
                 playerManager->players[j].playerTank.damage();
+                missiles[i].getPlayer()->addKill();
                 missiles.erase(missiles.begin() + i);
                 break;
             }

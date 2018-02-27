@@ -45,6 +45,7 @@ bool PlayerManager::addPlayer(Player player){
     temp->playerTank.setFont(&font);
     temp->playerTank.setExplosionManager(explosionManager);
     
+    
     updatePlayerRefs();
     
     return true;
@@ -159,9 +160,7 @@ sf::FloatRect PlayerManager::getMaxBounds(){
     bounds.height = std::max( 150.0f , std::min(500.0f , maxDistance.y) );
     
     if (bounds.height * 1.6f > bounds.width ){
-        std::cout<<bounds.width<<"\t";
         bounds.width = bounds.height * 1.6f;
-        std::cout<<bounds.width<<"\n";
     }
     else{
         bounds.height = bounds.width / 1.6f;

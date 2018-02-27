@@ -15,6 +15,7 @@ Player::Player(uint64_t hash,sf::IpAddress IP , unsigned short port, sf::Texture
     this->hash = hash;
     strcpy(this->name, name);
     window = &win;
+    kills = 0;
 }
 
 Player::~Player(){}
@@ -37,6 +38,18 @@ void Player::setPressedButtons(bool *buttons){
 
 bool Player::isAlive(){
     return playerTank.isAlive();
+}
+
+char* Player::getName(){
+    return name;
+}
+
+int Player::getKills(){
+    return kills;
+}
+
+void Player::addKill(){
+    kills++;
 }
 
 

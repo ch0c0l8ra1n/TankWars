@@ -99,6 +99,11 @@ int main(int, char const**){
     view.setCenter(250.0f , 250.0f);
     view.setSize(250*1.6, 250);
     
+    sf::View scoreBoardView;
+    scoreBoardView.setViewport(sf::FloatRect(0.7,0.0,0.3,0.5));
+    scoreBoardView.setCenter(1500, 1600);
+    scoreBoardView.setSize(250.0f , 500.0f);
+    
     //Load the texture
     sf::Texture tankTexture;
     tankTexture.loadFromFile( resourcePath() + "tank3.png" );
@@ -109,7 +114,7 @@ int main(int, char const**){
     
     sf::RectangleShape temp;
     temp.setFillColor(sf::Color(100,250,100));
-    temp.setPosition(450.0f, 450.0f);
+    temp.setPosition(1500.0f, 1500.0f);
     temp.setSize(sf::Vector2f(100,100));
     
     
@@ -141,7 +146,14 @@ int main(int, char const**){
     
     playerManager.setExplosionManager(&explosionManager);
     playerManager.setWorld(&world);
+    playerManager.setScoreBoard(&scoreBoard);
+    
+    missileManager.setScoreBoard(&scoreBoard);
     missileManager.setPlayerManager(&playerManager);
+    
+    scoreBoard.setPlayerManager(&playerManager);
+
+    
     tempIP = "127.0.0.1";
     int32 velocityIterations = 8;
     int32 positionIterations = 3;
@@ -215,9 +227,10 @@ int main(int, char const**){
                 msg = (MessageTypes *) receivingBuffer;
                 switch (*msg) {
                     case JOIN:
-                        //std::cout<<"JOIN\n";
+                        std::cout<<"JOIN\n";
                         joinMessage* jm;
                         jm = (joinMessage*) receivingBuffer;
+                        std::cout<<jm->name<<"\n";
                         playerManager.addPlayer( Player(jm->hash, tempIP, tempPort, tankTextures[jm->tankTextureId] , jm->name, window, &missileManager, &baseTexture) );
                         break;
                     case LEAVE:
@@ -307,6 +320,8 @@ int main(int, char const**){
                     break;
             }
         }
+        window.setView(scoreBoardView);
+        scoreBoard.draw(window);
         window.setView(view);
         window.display();
         window.clear( sf::Color( 155 , 129 , 80 ) );
